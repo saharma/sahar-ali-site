@@ -1,0 +1,367 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Icon from "../../components/Icon.astro";
+---
+
+<Layout
+  title="How to talk to developers so they actually listen — Sahar Ali"
+  description="You don't need to learn to code to work well with developers. Five practical habits — from a decade of translating between business and engineering."
+>
+  <article class="article">
+    <div class="wrap article-wrap">
+      <a href="/blog" class="article-back">← Back to the blog</a>
+
+      <div class="article-head reveal">
+        <span class="blog-icon article-head-icon"><Icon name="message" size={36} /></span>
+        <h1 class="section-title">
+          How to talk to developers so they <span class="highlight highlight--cyan">actually listen</span>
+        </h1>
+        <p class="article-meta">
+          <span class="read-time">10 min read</span>
+          <span>15 August 2026</span>
+          <span>· by Sahar Ali</span>
+        </p>
+      </div>
+
+      <div class="article-body">
+        <p>
+          I've spent the last ten years of my life working with developers, and sometimes speaking
+          to developers feels like speaking an entirely different language.
+        </p>
+        <p>
+          For non-technical people, software can feel incredibly complex. There are systems behind
+          systems, acronyms you've never heard before, and conversations where everyone seems to
+          understand what's happening except you.
+        </p>
+        <p>Ironically, the first step to understanding it is simplification.</p>
+
+        <h2>1. Simplify before you try to understand everything</h2>
+        <p>Imagine a developer tells you:</p>
+        <blockquote class="say">
+          "The API is returning a 401 because the access token has expired and the refresh token
+          isn't being persisted correctly."
+        </blockquote>
+        <p>
+          If you're non-technical, there are suddenly five things in that sentence you might feel
+          like you need to understand. API. 401. Access token. Refresh token. Persistence.
+        </p>
+        <p><strong>You don't.</strong></p>
+        <p>Start with: what does this mean for the user?</p>
+        <blockquote class="say">"They're getting logged out when they shouldn't be."</blockquote>
+        <p>Okay. Now you have something you can work with.</p>
+        <p>Then ask: what's causing that?</p>
+        <blockquote class="say">"We're failing to renew their session."</blockquote>
+        <p>And then, if you actually need to know: what needs to change?</p>
+        <blockquote class="say">"We need to fix how the refresh token is stored."</blockquote>
+        <p>
+          The technical explanation hasn't disappeared. You've just put it into layers. You can go
+          as deep as the conversation requires instead of trying to swallow the entire system in
+          one go.
+        </p>
+        <div class="pull pull--yellow">
+          Simplification doesn't mean dumbing something down. It means separating what you need to
+          understand from what you don't.
+        </div>
+        <p>
+          And don't be afraid to ask someone to explain something differently. "I don't understand"
+          is a perfectly useful thing to say. Pretending you understand and making decisions based
+          on something you've misunderstood is much less useful.
+        </p>
+        <p>
+          The goal is to understand what's happening, not to become the person who decides how to
+          fix it.
+        </p>
+
+        <h2>2. Don't solutionise</h2>
+        <p>There's a quote I always think about here:</p>
+        <div class="pull pull--pink">
+          "If I asked customers what they wanted, I would have built faster horses."
+        </div>
+        <p>
+          I used to confidently tell people this was Henry Ford. Apparently Henry Ford never
+          actually said it, which I discovered while writing this after quoting it for years. So
+          that's great.
+        </p>
+        <p>Whoever said it, though, had a point.</p>
+        <p>
+          The idea isn't that customers are stupid or don't know what they want. It's that the
+          person experiencing the problem isn't necessarily the person best placed to design the
+          solution.
+        </p>
+        <p>
+          And when you're working with a developer, you're the customer. You know the problem. They
+          know the system.
+        </p>
+        <p>
+          A client of mine started getting customers overseas, so they asked their developer for a
+          time zone dropdown on the booking page. The developer built exactly that.
+        </p>
+        <p>Here's what happened next.</p>
+        <p>
+          A customer in New York picks New York from the dropdown, sees a 2pm slot, and books it.
+          But the times on the page are still being rendered in the client's time zone, Dubai. So
+          the 2pm the customer saw wasn't the 2pm they got.
+        </p>
+        <p>
+          The confirmation email came through in the customer's time zone, which made it look
+          correct. Nobody had any reason to think something was wrong until people started joining
+          calls at the wrong hour and the client sat waiting for customers who'd already been and
+          gone.
+        </p>
+        <p>The dropdown wasn't wrong. It just answered a question nobody had checked was the right one.</p>
+        <p>What the developer got was a solution.</p>
+        <p>What they needed was the problem:</p>
+        <blockquote class="say">
+          We're suddenly selling into three countries, our customers are seeing times that don't
+          match what they booked, and we don't know how far the issue goes.
+        </blockquote>
+        <p>
+          Give a developer that, and they'll tell you the dropdown is the smallest part of it.
+          Every time on the site, every automated email, every calendar invite has to render
+          correctly for the person looking at it. That's a bigger job than it looks.
+        </p>
+        <p>The same thing happens with less obviously technical problems.</p>
+        <p>You ask for an export button.</p>
+        <p>The developer asks why.</p>
+        <blockquote class="say">
+          "Every Monday I export these records, copy four columns into another spreadsheet, format
+          it, and email it to Finance."
+        </blockquote>
+        <p>Now the question isn't necessarily how to build a better export button.</p>
+        <p>It's: why are you doing any of that manually?</p>
+        <p>
+          Maybe the report can be generated automatically. Maybe Finance can receive it
+          automatically. Maybe the two systems can talk to each other and the spreadsheet doesn't
+          need to exist at all.
+        </p>
+        <p>
+          That's the value of giving developers the problem, the context and the goal. It gives
+          them room to suggest things you didn't know were possible.
+        </p>
+        <p>
+          Some developers will interrogate a brief until they understand why. Plenty won't, and
+          that's not a failing. You asked for a thing and they built the thing.
+        </p>
+        <div class="pull pull--cyan">
+          If you're not the one solving it, don't hand over a solution. Hand over the problem and
+          let the person you hired do the part you hired them for.
+        </div>
+
+        <h2>3. Tell them what success looks like</h2>
+        <p>Giving a developer autonomy doesn't mean being vague.</p>
+        <p>
+          You can be completely open about how something gets solved while being incredibly
+          specific about what needs to be true when it's finished.
+        </p>
+        <p>One of the easiest ways to do this is with a user story.</p>
+        <p>It sounds like software jargon, but the format is ridiculously simple:</p>
+        <div class="format-box">
+          <span>As a <em>[type of user]</em></span>
+          <span>I want to <em>[do something]</em></span>
+          <span>So that <em>[reason/value]</em></span>
+        </div>
+        <p>For example:</p>
+        <blockquote class="say">
+          As a customer, I want to reset my password so that I can regain access to my account.
+        </blockquote>
+        <p>
+          You haven't said anything technical. You haven't told the developer how authentication
+          should work, what database to use or how to structure their code.
+        </p>
+        <p>You've told them who needs something, what they need and why.</p>
+        <p>
+          Then you can define what needs to happen for you to consider it done. In software teams,
+          these are often called acceptance criteria.
+        </p>
+        <p>A common format is:</p>
+        <div class="format-box">
+          <span>Given <em>[the starting situation]</em></span>
+          <span>When <em>[something happens]</em></span>
+          <span>Then <em>[this should happen]</em></span>
+        </div>
+        <p>For our password reset:</p>
+        <blockquote class="say">
+          Given I've forgotten my password<br />
+          When I request a reset using the email address associated with my account<br />
+          Then I receive a password reset email.
+        </blockquote>
+        <p>And:</p>
+        <blockquote class="say">
+          Given my reset link has expired<br />
+          When I try to use it<br />
+          Then I'm told it's expired and given the option to request another.
+        </blockquote>
+        <p>
+          You don't have to be technical to write any of that. In fact, as the person who
+          understands the user or the business need, you're probably better placed to define it.
+        </p>
+        <p>What you shouldn't be doing is deciding how the developer achieves it.</p>
+        <div class="pull pull--lime">
+          Give developers autonomy over the solution, but don't confuse autonomy with ambiguity.
+          Be flexible about the how. Be painfully specific about what success looks like.
+        </div>
+
+        <h2>4. An estimate isn't a promise, but it shouldn't be a shrug either</h2>
+        <p>
+          If you've worked with developers for long enough, you've probably had some version of
+          this conversation:
+        </p>
+        <blockquote class="say">"How long will this take?"</blockquote>
+        <blockquote class="say">"Probably two days."</blockquote>
+        <p>Three days later:</p>
+        <blockquote class="say">"You said it would take two days."</blockquote>
+        <p>
+          Software estimation is difficult because you're often estimating something before you've
+          actually discovered everything involved in building it.
+        </p>
+        <p>
+          A change that looks tiny might touch an integration nobody knew about. Old code might
+          behave differently than expected. Fixing one problem might expose another one underneath
+          it.
+        </p>
+        <p>
+          But "software is hard to estimate" also shouldn't mean timelines are meaningless and
+          everyone just hopes for the best.
+        </p>
+        <p>
+          Early on, when you're comparing pieces of work and don't know enough to put sensible
+          numbers against them, something as simple as T-shirt sizing can be useful:
+        </p>
+        <div class="format-box format-box--row">
+          <span>Small.</span>
+          <span>Medium.</span>
+          <span>Large.</span>
+          <span>Extra Large.</span>
+        </div>
+        <p>
+          You're not pretending you know whether something will take eleven hours or thirteen when
+          nobody has looked at it properly yet. You're saying, relative to the other work we're
+          looking at, this seems small or this seems complicated.
+        </p>
+        <p>As you learn more, estimates can get more specific.</p>
+        <p>Then check in.</p>
+        <p>And when an estimate changes, don't just ask when the new deadline is. Ask:</p>
+        <div class="pull pull--yellow">
+          What did we discover that we didn't know when we estimated this?
+        </div>
+        <p>Maybe there was an undocumented dependency.</p>
+        <p>Maybe an integration behaved differently than expected.</p>
+        <p>Maybe the requirement changed halfway through.</p>
+        <p>Maybe the existing code was much more complicated than anyone realised.</p>
+        <p>Or maybe the original estimate just wasn't very good.</p>
+        <p>That's useful information too.</p>
+        <p>Document why estimates were wrong, especially when you start seeing patterns.</p>
+        <p>
+          If every piece of work involving the same integration takes twice as long as you expect,
+          eventually "this integration is always more complicated than it looks" should become
+          information you use when estimating the next piece of work.
+        </p>
+        <p>
+          If a certain type of requirement constantly grows once development starts, maybe those
+          requirements need more investigation before they're estimated.
+        </p>
+        <p>
+          If estimates keep changing because requirements keep changing, you don't have an
+          estimation problem.
+        </p>
+        <p>
+          The point isn't to find someone to blame every time a date moves. It's to learn why it
+          moved so the next estimate can be better.
+        </p>
+        <p>
+          Size early. Estimate when you know more. Check in. Understand what changed. Learn from it
+          next time.
+        </p>
+        <p>
+          The goal isn't to make developers predict the future perfectly. It's to get better at
+          predicting it together.
+        </p>
+
+        <h2>5. "It doesn't work" isn't a bug report</h2>
+        <p>You find something broken and tell the developer:</p>
+        <blockquote class="say">"Login isn't working."</blockquote>
+        <p>They try it.</p>
+        <p>It works.</p>
+        <p>And then come the four words guaranteed to annoy absolutely everyone involved:</p>
+        <div class="pull pull--pink">"Works on my machine."</div>
+        <p>It can sound like the developer equivalent of "sounds like a you problem."</p>
+        <p>But it's actually useful information.</p>
+        <p>If it works for them and doesn't work for you, something is different.</p>
+        <p>Your job together is to figure out what.</p>
+        <p>
+          A developer can't investigate something they can't reproduce, so instead of just telling
+          them that something is broken, give them enough information to recreate what happened.
+        </p>
+        <p>A simple format is:</p>
+        <div class="format-box">
+          <span>I was: <em>[what you were doing]</em></span>
+          <span>I did: <em>[the action you took]</em></span>
+          <span>I expected: <em>[what should have happened]</em></span>
+          <span>Instead: <em>[what actually happened]</em></span>
+          <span>It happens: <em>[always / sometimes / once]</em></span>
+        </div>
+        <p>So instead of:</p>
+        <blockquote class="say">"Login is broken."</blockquote>
+        <p>You might say:</p>
+        <blockquote class="say">
+          I was: trying to log into my account on Safari on my iPhone.<br />
+          I did: enter my email and password and tap Log In.<br />
+          I expected: to be taken to my account.<br />
+          Instead: the button spun for about five seconds and returned me to the login screen with
+          no error.<br />
+          It happens: every time. I've tried three times.
+        </blockquote>
+        <p>Now the developer has somewhere to start.</p>
+        <p>
+          Screenshots and screen recordings can help. So can the browser or device you're using,
+          the page you were on, roughly what time it happened and anything unusual you noticed.
+        </p>
+        <p>You don't have to diagnose the bug.</p>
+        <p>
+          You just have to describe your reality well enough that someone else has a chance of
+          recreating it.
+        </p>
+
+        <h2>You don't need to speak developer</h2>
+        <p>None of this requires you to become technical.</p>
+        <p>
+          You don't need to learn to code to work well with developers. You need to get good at
+          explaining problems, giving context, defining what success looks like and being
+          comfortable saying, "I don't understand that, can you explain it differently?"
+        </p>
+        <p>
+          And, perhaps most importantly, treat developers like the experts you hired them to be.
+        </p>
+        <ul class="article-list">
+          <li>Give them autonomy.</li>
+          <li>Listen when they tell you something is more complicated than it looks.</li>
+          <li>Ask questions instead of pretending you understand.</li>
+          <li>Challenge them when something doesn't make sense, but actually listen to the answer.</li>
+          <li>
+            Give them context instead of instructions, and bring them into conversations early
+            enough that their expertise can change the direction, rather than after every decision
+            has already been made.
+          </li>
+          <li>Respect their time and their expertise.</li>
+          <li>And just generally, be nice to them.</li>
+        </ul>
+        <p>
+          The best developers I've worked with weren't people I handed perfectly written tickets to
+          and waited for code to come back. They were people I could throw a messy problem at,
+          argue through it with, learn from, and eventually arrive somewhere neither of us would
+          have got to alone.
+        </p>
+        <p>You don't need to speak developer.</p>
+        <p><strong>You just need to learn how to talk to one.</strong></p>
+      </div>
+
+      <div class="article-cta reveal">
+        <p>
+          Wrestling with exactly this kind of gap between your business and your dev team?
+          That's literally my job.
+        </p>
+        <a href="mailto:saharmohdali@gmail.com" class="btn btn--pink">Talk to me ✦</a>
+      </div>
+    </div>
+  </article>
+</Layout>

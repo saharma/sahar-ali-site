@@ -1,0 +1,334 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+
+const marqueeItems = [
+  "AI Strategy",
+  "Automation",
+  "Product Management",
+  "Delivery",
+  "Data Analytics",
+  "Dev Team Leadership",
+  "LLM Apps",
+  "Agentic Workflows",
+];
+
+const services = [
+  {
+    icon: "bot",
+    bg: "var(--pink)",
+    tag: "Most wanted",
+    title: "AI That Actually Ships",
+    desc: "LLM apps, RAG pipelines, agentic workflows, MCP integrations — built and shipped, not just slide-decked. I prototype hands-on with Claude and GPT APIs daily, so you get working software, fast.",
+  },
+  {
+    icon: "zap",
+    bg: "var(--yellow)",
+    tag: "",
+    title: "Automation & Ops",
+    desc: "Kill the busywork. I find the repetitive processes eating your team's week and replace them with automations — Zapier, Make, custom agents, service-desk bots, the lot.",
+  },
+  {
+    icon: "compass",
+    bg: "var(--cyan)",
+    tag: "",
+    title: "Product Management",
+    desc: "Vision, roadmap, discovery, ruthless prioritisation. I've owned 30+ products end to end and scaled one from zero to 300K users. Your idea becomes a plan; your plan becomes a product.",
+  },
+  {
+    icon: "truck",
+    bg: "var(--lime)",
+    tag: "",
+    title: "Delivery & Programme Mgmt",
+    desc: "Agile, hybrid, waterfall — whatever gets it shipped. Sprint planning, RAID, change control, exec reporting, vendor wrangling. Deadlines stop being fictional.",
+  },
+  {
+    icon: "code",
+    bg: "var(--purple)",
+    tag: "",
+    title: "Engineering Team Leadership",
+    desc: "I speak developer fluently. I've led engineering orgs into AI-first ways of working — Claude Code, Cursor, Copilot, automated testing and branching — and I can level up yours too.",
+  },
+  {
+    icon: "chart",
+    bg: "var(--orange)",
+    tag: "",
+    title: "Data & Analytics",
+    desc: "SQL, ETL, warehousing, BI dashboards. From eBay to Dubai's RTA, I've turned messy data into decisions people actually make. Your numbers should work as hard as you do.",
+  },
+];
+
+const work = [
+  {
+    num: "01",
+    title: "Nuur AI — 0 to 300,000 users",
+    tag: "AI · Growth",
+    desc: "Launched an AI product from scratch and scaled it to 300K users, owning roadmap and prioritisation against real market demand.",
+  },
+  {
+    num: "02",
+    title: "20 clinical registries across 4 regions",
+    tag: "Health-tech",
+    desc: "Led product for clinical data platforms deployed across Ireland, the EU, UK and US — regulated, time-sensitive, zero room for error.",
+  },
+  {
+    num: "03",
+    title: "Award-winning aeromedical app",
+    tag: "Delivery",
+    desc: "Real-time air-resource coordination for rapid patient transport. When 'time-critical' means lives, delivery discipline matters.",
+  },
+  {
+    num: "04",
+    title: "AI-first engineering transformation",
+    tag: "AI · Teams",
+    desc: "Took an entire engineering org into AI-first development: Claude Code, Cursor, Copilot, automated workflows, internal agents.",
+  },
+  {
+    num: "05",
+    title: "Enterprise data & BI, from eBay to the RTA",
+    tag: "Data",
+    desc: "ETL pipelines, MicroStrategy migrations and BI reporting that turned raw client data into decision-ready analytics — including managing COVID analytics for the Irish health services, used by the Ministry of Health to drive national decisions.",
+  },
+];
+
+const posts = [
+  {
+    icon: "lightbulb",
+    time: "5 min read",
+    title: "Your business doesn't need an 'AI strategy'. It needs three automations.",
+    desc: "Skip the 40-page strategy deck. Here's how to find the three workflows where AI will pay for itself this quarter.",
+  },
+  {
+    icon: "message",
+    time: "10 min read",
+    href: "/blog/how-to-talk-to-developers",
+    title: "How to talk to developers so they actually listen",
+    desc: "Why your specs get ignored, what devs are really asking in standup, and the translation layer that fixes it.",
+  },
+  {
+    icon: "rocket",
+    time: "6 min read",
+    title: "0 to 300K users: what actually mattered",
+    desc: "The unglamorous truth about scaling an AI product — and the three decisions that did 90% of the work.",
+  },
+];
+---
+
+<Layout>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <svg class="hero-star" viewBox="0 0 100 100" data-parallax="0.08" aria-hidden="true">
+        <polygon
+          points="50,0 61,35 98,35 68,57 79,91 50,70 21,91 32,57 2,35 39,35"
+          fill="var(--yellow)"
+          stroke="var(--black)"
+          stroke-width="3"
+        />
+      </svg>
+      <span class="sticker sticker--1" data-parallax="0.12">AI ✦ EVERY DAY</span>
+      <span class="sticker sticker--2" data-parallax="-0.06">0 → 300K USERS</span>
+      <span class="sticker sticker--3" data-parallax="0.09">SHIPS, NOT DECKS</span>
+      <span class="sticker sticker--4" data-parallax="-0.1">10+ YRS</span>
+
+      <div class="hero-kicker reveal">
+        <span class="dot"></span>
+        Dubai-based · Working worldwide · Taking new clients
+      </div>
+      <h1 class="reveal">
+        I turn <span class="highlight highlight--pink">tech chaos</span> into{" "}
+        <span class="highlight highlight--cyan">business</span>{" "}
+        <span class="highlight highlight--cyan">results</span>
+      </h1>
+      <p class="hero-sub reveal">
+        Your developers speak in sprints and stack traces. Your board speaks in revenue and risk.
+        I speak both — fluently. AI, automation, product, delivery and data, from
+        someone who's shipped 30+ products and still builds every day.
+      </p>
+      <div class="hero-ctas reveal">
+        <a href="#contact" class="btn btn--pink btn--big">Work with me →</a>
+        <a href="#services" class="btn btn--big">See what I do</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      {[0, 1].map(() => (
+        <>
+          {marqueeItems.map((item) => (
+            <>
+              <span>{item}</span>
+              <span class="star-sep">✦</span>
+            </>
+          ))}
+        </>
+      ))}
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <section id="stats">
+    <div class="wrap">
+      <div class="stats-grid stagger">
+        <div class="stat-card">
+          <span class="stat-number"><span data-count="10" data-suffix="+">0</span></span>
+          <span class="stat-label">years in tech</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number"><span data-count="30" data-suffix="+">0</span></span>
+          <span class="stat-label">products shipped</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number"><span data-count="300" data-suffix="K">0</span></span>
+          <span class="stat-label">users scaled to</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number"><span data-count="4" data-suffix="">0</span></span>
+          <span class="stat-label">continents delivered on</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="wrap">
+      <span class="section-tag reveal">What I do</span>
+      <h2 class="section-title reveal">
+        Six ways I make your tech <span class="highlight highlight--yellow">less painful</span>
+      </h2>
+      <div class="services-grid stagger">
+        {services.map((s) => (
+          <div class="service-card">
+            {s.tag && <span class="corner-tag">{s.tag}</span>}
+            <div class="service-icon" style={`background:${s.bg}`}><Icon name={s.icon} size={28} /></div>
+            <h3>{s.title}</h3>
+            <p>{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- BRIDGE -->
+  <section class="bridge">
+    <div class="wrap">
+      <span class="section-tag reveal">The superpower</span>
+      <h2 class="section-title reveal">Two languages. One translator.</h2>
+      <div class="bridge-cols">
+        <div class="speech-card speech-card--biz reveal reveal--left">
+          <h3><Icon name="briefcase" size={20} /> Your business says</h3>
+          <ul>
+            <li>"Can we do this with AI?"</li>
+            <li>"Why is it taking so long?"</li>
+            <li>"What's the ROI on this?"</li>
+            <li>"We need it by Q3."</li>
+          </ul>
+        </div>
+        <div class="bridge-mid reveal reveal--pop">
+          <div class="bridge-arrows" aria-hidden="true">⟵ ⟶</div>
+          <div class="bridge-me">Me.<br />The translator.</div>
+          <div class="bridge-arrows" aria-hidden="true">⟵ ⟶</div>
+        </div>
+        <div class="speech-card speech-card--dev reveal reveal--right">
+          <h3><Icon name="terminal" size={20} /> Your devs say</h3>
+          <ul>
+            <li>"The scope keeps changing."</li>
+            <li>"That's technical debt."</li>
+            <li>"It works on my machine."</li>
+            <li>"We need to refactor first."</li>
+          </ul>
+        </div>
+      </div>
+      <p class="bridge-note reveal">
+        Ten years of sitting exactly in the middle — writing the user stories developers
+        actually want to build, and the exec reports boards actually want to read. Nothing
+        lost in translation, nothing shipped late because two rooms couldn't understand each other.
+      </p>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="wrap">
+      <span class="section-tag reveal">Receipts</span>
+      <h2 class="section-title reveal">
+        Proof I <span class="highlight highlight--lime">actually deliver</span>
+      </h2>
+      <div class="work-list stagger">
+        {work.map((w) => (
+          <div class="work-card">
+            <div class="work-num">{w.num}</div>
+            <div>
+              <h3>{w.title}</h3>
+              <p>{w.desc}</p>
+            </div>
+            <span class="work-tag">{w.tag}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE 2 -->
+  <div class="marquee marquee--flip" aria-hidden="true">
+    <div class="marquee-track">
+      {[0, 1].map(() => (
+        <>
+          {["Less jargon", "More shipping", "Fewer meetings", "Better products", "Happier devs", "Clearer roadmaps"].map(
+            (item) => (
+              <>
+                <span>{item}</span>
+                <span class="star-sep">✦</span>
+              </>
+            )
+          )}
+        </>
+      ))}
+    </div>
+  </div>
+
+  <!-- BLOG -->
+  <section class="blog" id="blog">
+    <div class="wrap">
+      <span class="section-tag reveal">The blog</span>
+      <h2 class="section-title reveal">Thoughts, unfiltered</h2>
+      <div class="blog-grid stagger">
+        {posts.map((p) => (
+          <a class="blog-card" href={p.href ?? "/blog"}>
+            <div class="blog-card-top">
+              <span class="blog-icon"><Icon name={p.icon} size={40} /></span>
+              <span class="read-time">{p.time}</span>
+            </div>
+            <div class="blog-card-body">
+              <h3>{p.title}</h3>
+              <p>{p.desc}</p>
+              <span class="fake-link">Read it →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="contact">
+    <div class="wrap">
+      <h2 class="section-title reveal">
+        Got a tech problem?<br />
+        <span class="highlight highlight--pink">Let's fix it.</span>
+      </h2>
+      <p class="cta-sub reveal">
+        Whether it's an AI idea you can't scope, a delivery that's gone sideways, or a
+        dev team that needs a leader who gets it — the first chat is free and jargon-free.
+      </p>
+      <div class="reveal reveal--pop">
+        <a href="mailto:saharmohdali@gmail.com" class="btn btn--pink btn--big">
+          saharmohdali@gmail.com ✦
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
