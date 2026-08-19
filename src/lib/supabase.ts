@@ -1,13 +1,5 @@
+import { getSecret } from "astro:env/server";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
-
-function readEnv(name: string): string | undefined {
-  const fromImportMeta = (import.meta.env as Record<string, string | undefined>)[
-    name
-  ];
-  const fromProcess =
-    typeof process !== "undefined" ? process.env[name] : undefined;
-  return fromImportMeta || fromProcess;
-}
 
 let client: SupabaseClient | undefined;
 
@@ -15,12 +7,22 @@ export function getSupabase(): SupabaseClient | null {
   if (client) return client;
 
   const url =
-    readEnv("SUPABASE_URL") ||
-    readEnv("PUBLIC_SUPABASE_URL") ||
-    readEnv("NEXT_PUBLIC_SUPABASE_URL");
-  const serviceRoleKey = readEnv("SUPABASE_SERVICE_ROLE_KEY");
+    getSecret("SUPABASE_URL") ||
+    process.env.SUPABASE_URL ||
+    import.meta.env.SUPABASE_URL ||
+    import.meta.env.PUBLIC_SUPABASE_URL;
+  const serviceRoleKey =
+    getSecret("SUPABASE_SERVICE_ROLE_KEY") ||
+    process.env.SUPABASE_SERVICE_ROLE_KEY ||
+    import.meta.env.SUPABASE_SERVICE_ROLE_KEY;
 
-  if (!url || !serviceRoleKey) return null;
+  if (!url || !serviceRoleKey) {
+    console.error("newsletter: missing Supabase env", {
+      hasUrl: Boolean(url),
+      hasKey: Boolean(serviceRoleKey),
+    });
+    return null;
+  }
 
   client = createClient(url, serviceRoleKey, {
     auth: { persistSession: false, autoRefreshToken: false },

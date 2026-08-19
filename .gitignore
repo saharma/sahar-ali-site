@@ -26,3 +26,4 @@ pnpm-debug.log*
 
 # newsletter signups collected locally / on the server
 data/newsletter-signups.json
+.vercel

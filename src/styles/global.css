@@ -26,6 +26,8 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
@@ -34,7 +36,8 @@ body {
   font-family: var(--font-body);
   font-size: 1.05rem;
   line-height: 1.6;
-  overflow-x: hidden;
+  max-width: 100%;
+  overscroll-behavior-x: none;
 }
 
 /* subtle dot grid backdrop */
@@ -285,6 +288,12 @@ section {
   padding: 0 0.15em;
 }
 
+@media (max-width: 720px) {
+  .highlight {
+    white-space: normal;
+  }
+}
+
 .highlight::after {
   content: "";
   position: absolute;
@@ -320,6 +329,8 @@ section {
   font-weight: 700;
   margin-bottom: 1.6rem;
   transform: rotate(-1.5deg);
+  max-width: 100%;
+  flex-wrap: wrap;
 }
 
 .hero-kicker .dot {
@@ -426,7 +437,7 @@ section {
 .marquee--flip {
   background: var(--yellow);
   color: var(--black);
-  transform: rotate(-1deg) scale(1.02);
+  transform: rotate(-1deg);
 }
 
 .marquee-track {
@@ -457,7 +468,7 @@ section {
 /* ---------- stats ---------- */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
   gap: 1.5rem;
 }
 
@@ -494,7 +505,7 @@ section {
 /* ---------- services ---------- */
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(310px, 100%), 1fr));
   gap: 1.8rem;
   margin-top: 2.5rem;
 }
@@ -812,7 +823,7 @@ section {
 
 .blog-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(290px, 100%), 1fr));
   gap: 1.8rem;
   margin-top: 2.5rem;
 }
@@ -1251,4 +1262,40 @@ section {
   }
   html { scroll-behavior: auto; }
   .reveal, .stagger > * { opacity: 1; transform: none; }
+}
+
+@media (max-width: 720px) {
+  .wrap {
+    padding: 0 1.1rem;
+  }
+
+  section {
+    padding: 3.75rem 0;
+  }
+
+  .hero {
+    padding: 3rem 0 2.5rem;
+  }
+
+  .hero-ctas .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .marquee--flip {
+    transform: none;
+  }
+
+  .reveal--left,
+  .reveal--right {
+    transform: translateY(40px);
+  }
+
+  .work-tag {
+    white-space: normal;
+  }
+
+  .cta {
+    padding: 4.5rem 0;
+  }
 }
