@@ -1,11 +1,12 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Icon from "../../components/Icon.astro";
+import { consultationUrl } from "../../data/links";
 ---
 
 <Layout
-  title="How to talk to developers so they actually listen — Sahar Ali"
-  description="You don't need to learn to code to work well with developers. Five practical habits — from a decade of translating between business and engineering."
+  title="How to talk to developers | Sahar Ali"
+  description="You don't need to learn to code to work well with developers. Five practical habits, from a decade of translating between business and engineering."
 >
   <article class="article">
     <div class="wrap article-wrap">
@@ -13,9 +14,7 @@ import Icon from "../../components/Icon.astro";
 
       <div class="article-head reveal">
         <span class="blog-icon article-head-icon"><Icon name="message" size={36} /></span>
-        <h1 class="section-title">
-          How to talk to developers so they <span class="highlight highlight--cyan">actually listen</span>
-        </h1>
+        <h1 class="section-title">How to talk to developers</h1>
         <p class="article-meta">
           <span class="read-time">10 min read</span>
           <span>15 August 2026</span>
@@ -360,7 +359,7 @@ import Icon from "../../components/Icon.astro";
           Wrestling with exactly this kind of gap between your business and your dev team?
           That's literally my job.
         </p>
-        <a href="mailto:saharmohdali@gmail.com" class="btn btn--pink">Talk to me ✦</a>
+        <a href={consultationUrl} class="btn btn--pink" target="_blank" rel="noopener noreferrer">Book a consult ✦</a>
       </div>
     </div>
   </article>

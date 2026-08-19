@@ -1,5 +1,5 @@
 /* ============================================
-   SAHAR ALI — Neo-brutalist pop design system
+   SAHAR ALI: Neo-brutalist pop design system
    ============================================ */
 
 :root {
@@ -722,6 +722,87 @@ section {
   align-self: center;
 }
 
+/* ---------- testimonials ---------- */
+.quotes {
+  background: var(--orange);
+  border-top: var(--border);
+  border-bottom: var(--border);
+}
+
+.quotes .section-tag {
+  background: var(--cream);
+  color: var(--black);
+}
+
+.quotes .section-title {
+  color: var(--cream);
+}
+
+.quotes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.8rem;
+  margin-top: 2.5rem;
+}
+
+@media (max-width: 900px) {
+  .quotes-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.quote-card {
+  background: #fff;
+  border: var(--border);
+  box-shadow: var(--shadow);
+  padding: 1.8rem 1.6rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+  margin: 0;
+  transform: rotate(-0.6deg);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.quote-card:nth-child(2) {
+  background: var(--yellow);
+  transform: rotate(0.8deg);
+}
+
+.quote-card:nth-child(3) {
+  background: var(--cyan);
+  transform: rotate(-0.4deg);
+}
+
+.quote-card blockquote {
+  font-weight: 600;
+  font-size: 1.02rem;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.quote-card figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-size: 0.92rem;
+}
+
+.quote-card figcaption strong {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+}
+
+.stagger.visible .quote-card:nth-child(1) { transform: rotate(-0.6deg); }
+.stagger.visible .quote-card:nth-child(2) { transform: rotate(0.8deg); }
+.stagger.visible .quote-card:nth-child(3) { transform: rotate(-0.4deg); }
+
+.quote-card:hover {
+  transform: translate(-4px, -4px) rotate(0deg);
+  box-shadow: 11px 11px 0 var(--black);
+}
+
 /* ---------- blog ---------- */
 .blog {
   background: var(--cyan);
@@ -802,7 +883,7 @@ section {
   flex: 1;
 }
 
-.blog-card .fake-link {
+.blog-card .card-cta {
   font-weight: 700;
   text-transform: uppercase;
   font-size: 0.85rem;
@@ -1013,6 +1094,97 @@ section {
 
 .footer a:hover {
   text-decoration: underline;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.1rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- tools ---------- */
+.tools {
+  background: var(--lime);
+  border-top: var(--border);
+  border-bottom: var(--border);
+}
+
+/* ---------- newsletter ---------- */
+.newsletter {
+  text-align: center;
+  padding: 5.5rem 0;
+}
+
+.newsletter .cta-sub {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.newsletter-form {
+  display: grid;
+  grid-template-columns: minmax(0, 420px) auto;
+  gap: 0.8rem 1rem;
+  justify-content: center;
+  align-items: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.newsletter-form input {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 600;
+  border: var(--border);
+  box-shadow: var(--shadow-sm);
+  background: #fff;
+  padding: 0.85rem 1.1rem;
+  min-width: 0;
+}
+
+.newsletter-form input:focus {
+  outline: 3px solid var(--cyan);
+  outline-offset: 2px;
+}
+
+.newsletter-form button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.newsletter-status {
+  grid-column: 1 / -1;
+  min-height: 1.4em;
+  font-weight: 700;
+}
+
+.newsletter-status.is-ok {
+  color: var(--black);
+}
+
+.newsletter-status.is-error {
+  color: #b42318;
+}
+
+@media (max-width: 640px) {
+  .newsletter-form {
+    grid-template-columns: 1fr;
+  }
+
+  .newsletter-form button {
+    width: 100%;
+  }
 }
 
 /* ---------- scroll reveal ---------- */

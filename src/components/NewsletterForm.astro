@@ -1,0 +1,71 @@
+---
+---
+
+<form class="newsletter-form" id="newsletterForm" novalidate>
+  <label class="sr-only" for="newsletterEmail">Email address</label>
+  <input
+    id="newsletterEmail"
+    name="email"
+    type="email"
+    autocomplete="email"
+    required
+    placeholder="you@company.com"
+  />
+  <button class="btn btn--pink" type="submit">Subscribe ✦</button>
+  <p class="newsletter-status" id="newsletterStatus" role="status" aria-live="polite"></p>
+</form>
+
+<script>
+  const form = document.getElementById("newsletterForm") as HTMLFormElement | null;
+  const status = document.getElementById("newsletterStatus");
+  const input = document.getElementById("newsletterEmail") as HTMLInputElement | null;
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!input || !status) return;
+
+    const email = input.value.trim();
+    status.textContent = "";
+    status.className = "newsletter-status";
+
+    if (!email || !input.checkValidity()) {
+      status.textContent = "That doesn't look like an email.";
+      status.classList.add("is-error");
+      input.focus();
+      return;
+    }
+
+    const button = form.querySelector("button");
+    if (button) button.setAttribute("disabled", "true");
+
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const data = (await res.json()) as { ok?: boolean; error?: string };
+
+      if (res.status === 409 || data.error === "duplicate") {
+        status.textContent = "You're already on the list.";
+        status.classList.add("is-ok");
+        return;
+      }
+
+      if (!res.ok || !data.ok) {
+        status.textContent = "Couldn't add that email. Try again?";
+        status.classList.add("is-error");
+        return;
+      }
+
+      input.value = "";
+      status.textContent = "You're in. I'll write when there's something worth sending.";
+      status.classList.add("is-ok");
+    } catch {
+      status.textContent = "Couldn't add that email. Try again?";
+      status.classList.add("is-error");
+    } finally {
+      button?.removeAttribute("disabled");
+    }
+  });
+</script>
