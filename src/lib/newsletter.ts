@@ -1,54 +1,23 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
-import path from "node:path";
+import { getSupabase } from "./supabase";
 
-export type Signup = { email: string; signedUpAt: string };
+export type SignupResult =
+  | { ok: true }
+  | { ok: false; reason: "invalid" | "duplicate" | "unavailable" };
 
-const FILE = path.join(process.cwd(), "data", "newsletter-signups.json");
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-type Store = typeof globalThis & { __newsletterSignups?: Signup[] };
-
-function memory(): Signup[] {
-  const g = globalThis as Store;
-  if (!g.__newsletterSignups) g.__newsletterSignups = [];
-  return g.__newsletterSignups;
-}
-
-async function loadFromDisk(): Promise<Signup[]> {
-  try {
-    const raw = await readFile(FILE, "utf8");
-    const parsed = JSON.parse(raw) as Signup[];
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
-  }
-}
-
-async function saveToDisk(signups: Signup[]): Promise<void> {
-  await mkdir(path.dirname(FILE), { recursive: true });
-  await writeFile(FILE, JSON.stringify(signups, null, 2) + "\n");
-}
-
-export async function addSignup(
-  email: string,
-): Promise<{ ok: true } | { ok: false; reason: "invalid" | "duplicate" }> {
+export async function addSignup(email: string): Promise<SignupResult> {
   const normalised = email.trim().toLowerCase();
   if (!EMAIL_RE.test(normalised)) return { ok: false, reason: "invalid" };
 
-  const fromDisk = await loadFromDisk();
-  const list = memory();
-  if (fromDisk.length && list.length === 0) list.push(...fromDisk);
+  const supabase = getSupabase();
+  if (!supabase) return { ok: false, reason: "unavailable" };
 
-  if (list.some((s) => s.email === normalised)) {
-    return { ok: false, reason: "duplicate" };
-  }
+  const { error } = await supabase.from("newsletter_signups").insert({
+    email: normalised,
+  });
 
-  list.push({ email: normalised, signedUpAt: new Date().toISOString() });
-  try {
-    await saveToDisk(list);
-  } catch {
-    // Serverless filesystems are often read-only. Memory still holds the list
-    // until the instance recycles; swap this for a real store later.
-  }
-  return { ok: true };
+  if (!error) return { ok: true };
+  if (error.code === "23505") return { ok: false, reason: "duplicate" };
+  return { ok: false, reason: "unavailable" };
 }

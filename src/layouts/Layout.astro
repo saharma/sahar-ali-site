@@ -1,4 +1,5 @@
 ---
+import Analytics from "@vercel/analytics/astro";
 import "../styles/global.css";
 import { posts } from "../data/posts";
 import {
@@ -108,6 +109,7 @@ const articleSchema = type === "article"
       href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <Analytics />
   </head>
   <body>
     <div class="progress-bar" id="progressBar"></div>

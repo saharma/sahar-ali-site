@@ -21,7 +21,8 @@ export const POST: APIRoute = async ({ request }) => {
 
   const result = await addSignup(email);
   if (!result.ok) {
-    const status = result.reason === "duplicate" ? 409 : 400;
+    const status =
+      result.reason === "duplicate" ? 409 : result.reason === "unavailable" ? 503 : 400;
     return Response.json({ ok: false, error: result.reason }, { status });
   }
 
