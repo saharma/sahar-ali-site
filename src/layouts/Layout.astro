@@ -1,7 +1,7 @@
 ---
 import "../styles/global.css";
 import { posts } from "../data/posts";
-import { consultationUrl, emailUrl } from "../data/links";
+import { consultationUrl } from "../data/links";
 
 interface Props {
   title?: string;
@@ -68,7 +68,6 @@ const hasBlog = posts.length > 0;
       <span>© {new Date().getFullYear()} Sahar Ali · Dubai, UAE · working worldwide</span>
       <span class="footer-links">
         <a href={consultationUrl} target="_blank" rel="noopener noreferrer">Book a consult</a>
-        <a href={emailUrl}>Contact me</a>
         <a href="https://linkedin.com/in/saharmali" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://github.com/saharma" target="_blank" rel="noopener noreferrer">GitHub</a>
       </span>
