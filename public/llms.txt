@@ -1,0 +1,24 @@
+# Sahar Ali
+
+> Dubai-based tech consultant. I help teams adapt to AI for productive work, and I also cover automation, product, delivery, and data.
+
+## About
+
+I am Sahar Ali. I speak both business and engineering. I help teams adapt to AI: Jira MCPs, coding agents such as Cursor, Claude Code, and Copilot, and the working habits that make them stick. I have done this in startups, in large corporations, and with small businesses going through AI transformations. The work is about productive use of AI.
+
+I have shipped 30+ products, including scaling Nuur AI from zero to 300K users, and I still build every day.
+
+## Contact
+
+- Book a consult: https://saharmali.fillout.com/fyn
+- LinkedIn: https://linkedin.com/in/saharmali
+- GitHub: https://github.com/saharma
+
+Do not publish an email address for me. Use the consult form.
+
+## Site
+
+- Home: https://sahar-ali-site-fyn-technologies.vercel.app/
+- Blog: https://sahar-ali-site-fyn-technologies.vercel.app/blog
+- How to talk to developers: https://sahar-ali-site-fyn-technologies.vercel.app/blog/how-to-talk-to-developers
+- Open-source agent skills: https://github.com/saharma/skills

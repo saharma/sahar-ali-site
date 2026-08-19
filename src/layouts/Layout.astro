@@ -1,20 +1,79 @@
 ---
 import "../styles/global.css";
 import { posts } from "../data/posts";
-import { consultationUrl } from "../data/links";
+import {
+  consultationUrl,
+  githubUrl,
+  linkedinUrl,
+  siteUrl,
+} from "../data/links";
 
 interface Props {
   title?: string;
   description?: string;
+  type?: "website" | "article";
+  publishedTime?: string;
 }
 
 const {
   title = "Sahar Ali | Tech Consultant | AI, Product & Delivery",
   description =
-    "Tech consultant bridging business and engineering: AI strategy, automation, product management, delivery, and data analytics. 10+ years, 30+ products shipped.",
+    "I help teams adapt to AI for productive work: Jira MCPs, coding agents, startups, large corporations, and small businesses. Also automation, product, delivery, and data.",
+  type = "website",
+  publishedTime,
 } = Astro.props;
 
 const hasBlog = posts.length > 0;
+const canonical = new URL(Astro.url.pathname, siteUrl).href;
+const jsonLdDescription =
+  "Sahar Ali is a Dubai-based tech consultant. She helps teams adapt to AI for productive work, including Jira MCPs, coding agents, startups, large corporations, and AI transformations in small businesses. She also covers automation, product, delivery, and data.";
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Sahar Ali",
+  jobTitle: "Tech Consultant",
+  url: siteUrl,
+  description: jsonLdDescription,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Dubai",
+    addressCountry: "AE",
+  },
+  sameAs: [linkedinUrl, githubUrl],
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "Sahar Ali",
+  url: siteUrl,
+  description: jsonLdDescription,
+  areaServed: "Worldwide",
+  sameAs: [linkedinUrl, githubUrl],
+  potentialAction: {
+    "@type": "ReserveAction",
+    name: "Book a consult",
+    target: consultationUrl,
+  },
+};
+
+const articleSchema = type === "article"
+  ? {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: title.replace(" | Sahar Ali", ""),
+      description,
+      datePublished: publishedTime,
+      author: {
+        "@type": "Person",
+        name: "Sahar Ali",
+        url: siteUrl,
+      },
+      url: canonical,
+      mainEntityOfPage: canonical,
+    }
+  : null;
 ---
 
 <!doctype html>
@@ -24,7 +83,25 @@ const hasBlog = posts.length > 0;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <title>{title}</title>
+    <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="Sahar Ali" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="en_GB" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {publishedTime && (
+      <meta property="article:published_time" content={publishedTime} />
+    )}
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(personSchema)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} />
+    {articleSchema && (
+      <script type="application/ld+json" is:inline set:html={JSON.stringify(articleSchema)} />
+    )}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -68,8 +145,8 @@ const hasBlog = posts.length > 0;
       <span>© {new Date().getFullYear()} Sahar Ali · Dubai, UAE · working worldwide</span>
       <span class="footer-links">
         <a href={consultationUrl} target="_blank" rel="noopener noreferrer">Book a consult</a>
-        <a href="https://linkedin.com/in/saharmali" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://github.com/saharma" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href={githubUrl} target="_blank" rel="noopener noreferrer">GitHub</a>
       </span>
     </footer>
 
