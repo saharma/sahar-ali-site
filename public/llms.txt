@@ -19,6 +19,11 @@ Do not publish an email address for me. Use the consult form.
 ## Site
 
 - Home: https://saharali.com/
+- Portfolio: https://saharali.com/portfolio
+- Nuur AI: https://saharali.com/portfolio/nuur-ai
+- Clinical registries: https://saharali.com/portfolio/clinical-registries
+- Fyn: https://saharali.com/portfolio/fyn
+- Fyn product: https://fynhq.co
 - Blog: https://saharali.com/blog
 - How to talk to developers: https://saharali.com/blog/how-to-talk-to-developers
 - Open-source agent skills: https://github.com/saharma/skills

@@ -1,0 +1,144 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import CaseStudyBody from "../../components/CaseStudyBody.astro";
+import { consultationUrl, emailUrl } from "../../data/links";
+import { caseStudies } from "../../data/caseStudies";
+
+const snapshot = [
+  "10+ years in tech",
+  "30+ products shipped",
+  "0 → 300K users",
+  "4 continents",
+];
+---
+
+<Layout
+  title="Product Portfolio | Sahar Ali"
+  description="The work behind the work. Selected product case studies from Sahar Ali: Nuur AI, clinical registry platforms, and Fyn."
+>
+  <article class="article page-portfolio">
+    <div class="wrap article-wrap">
+      <a href="/#work" class="article-back">← Back to the site</a>
+
+      <header class="portfolio-banner reveal">
+        <p class="portfolio-mark">SAHAR<span class="spark">✦</span>ALI</p>
+        <h1>Product Portfolio</h1>
+      </header>
+
+      <div class="article-body">
+        <h2 class="portfolio-lede">The work behind the work.</h2>
+        <p>
+          A finished product tells you what shipped. It doesn't tell you what had to happen to get
+          there.
+        </p>
+        <p>
+          This is the bit behind the screenshots: the messy problems, user needs, product decisions,
+          requirements, trade-offs, delivery and iteration that turned an idea into something people
+          could actually use.
+        </p>
+        <p>
+          I've spent 10+ years doing that across AI, healthcare, data, government and consumer tech.
+          Here are a few of the products, and how I got them from problem to shipped.
+        </p>
+
+        <p class="portfolio-kicker">Portfolio snapshot</p>
+        <div class="portfolio-snapshot" aria-label="Portfolio snapshot">
+          {snapshot.map((item, i) => (
+            <>
+              {i > 0 && <span class="star-sep" aria-hidden="true">✦</span>}
+              <span>{item}</span>
+            </>
+          ))}
+        </div>
+
+        <h2>Selected work</h2>
+        <div class="case-list">
+          {caseStudies.map((item) => (
+            <details class="case-item" id={item.slug} name="portfolio-case">
+              <summary class="case-teaser">
+                <span class="work-num">{item.num}</span>
+                <div>
+                  <h3>{item.kicker}</h3>
+                  <p class="case-sub">{item.title}</p>
+                  <p>{item.summary}</p>
+                  <p class="case-tags">{item.tags}</p>
+                  <div class="case-actions">
+                    <span class="btn btn--pink case-open-btn">
+                      <span class="case-open-label">View case study →</span>
+                      <span class="case-close-label">Close case study</span>
+                    </span>
+                    {item.liveUrl && (
+                      <a
+                        class="btn case-live-btn"
+                        href={item.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {item.liveLabel} →
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </summary>
+              <div class="case-panel">
+                <CaseStudyBody study={item} withAnchor={false} showCaseHeader={false} showTitle={false} />
+              </div>
+            </details>
+          ))}
+        </div>
+
+        <h2>How I work</h2>
+        <p>Different products need different processes. The pattern underneath them is pretty consistent.</p>
+        <div class="format-box">
+          Understand the problem → Find the signal → Make the call → Make it buildable → Ship → Learn → Do it again
+        </div>
+        <p>
+          I don't believe product management is producing more artefacts. A roadmap isn't the product.
+          A Jira ticket isn't the product. The job is making good decisions with imperfect information,
+          getting everyone pointed in the same direction and turning that into something useful.
+        </p>
+      </div>
+
+      <div class="article-cta">
+        <h2>Want the person behind the case studies?</h2>
+        <p>
+          I work across product, AI, automation and delivery, particularly where the business problem
+          is clear but getting from 'we need this' to 'it's live' is the difficult bit.
+        </p>
+        <a href={consultationUrl} class="btn btn--pink" target="_blank" rel="noopener noreferrer">Book a consult ✦</a>
+        <a href={emailUrl} class="btn">Contact me</a>
+      </div>
+    </div>
+  </article>
+
+  <script>
+    function openCaseFromHash() {
+      const id = decodeURIComponent(location.hash.replace("#", ""));
+      if (!id) return;
+      const el = document.getElementById(id);
+      if (!(el instanceof HTMLDetailsElement)) return;
+      el.open = true;
+      el.scrollIntoView({ block: "start" });
+    }
+
+    openCaseFromHash();
+    window.addEventListener("hashchange", openCaseFromHash);
+
+    document.querySelectorAll(".case-live-btn").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.stopPropagation();
+      });
+    });
+
+    document.querySelectorAll(".case-item").forEach((item) => {
+      item.addEventListener("toggle", () => {
+        if (!(item instanceof HTMLDetailsElement)) return;
+        if (item.open) {
+          history.replaceState(null, "", `#${item.id}`);
+        } else if (location.hash === `#${item.id}`) {
+          history.replaceState(null, "", location.pathname);
+        }
+      });
+    });
+  </script>
+</Layout>

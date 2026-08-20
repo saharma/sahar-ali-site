@@ -1,0 +1,46 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import CaseStudyBody from "../../components/CaseStudyBody.astro";
+import { consultationUrl, emailUrl } from "../../data/links";
+import { caseStudies, getCaseStudy } from "../../data/caseStudies";
+
+export function getStaticPaths() {
+  return caseStudies.map((item) => ({ params: { slug: item.slug } }));
+}
+
+const { slug } = Astro.params;
+const study = getCaseStudy(slug ?? "");
+if (!study) {
+  throw new Error(`Unknown case study: ${slug}`);
+}
+---
+
+<Layout
+  title={`${study.kicker} | Product Portfolio | Sahar Ali`}
+  description={study.summary}
+>
+  <article class="article page-portfolio">
+    <div class="wrap article-wrap">
+      <a href="/portfolio" class="article-back">← Back to the portfolio</a>
+
+      <header class="portfolio-banner">
+        <p class="portfolio-mark">SAHAR<span class="spark">✦</span>ALI</p>
+        <p class="portfolio-kicker">Case study {study.num}</p>
+        <h1>{study.kicker}</h1>
+      </header>
+
+      <div class="article-body">
+        <CaseStudyBody study={study} showCaseHeader={false} />
+      </div>
+
+      <div class="article-cta">
+        <p>
+          Want the person behind the case studies? I work across product, AI, automation and delivery,
+          particularly where getting from 'we need this' to 'it's live' is the difficult bit.
+        </p>
+        <a href={consultationUrl} class="btn btn--pink" target="_blank" rel="noopener noreferrer">Book a consult ✦</a>
+        <a href={emailUrl} class="btn">Contact me</a>
+      </div>
+    </div>
+  </article>
+</Layout>

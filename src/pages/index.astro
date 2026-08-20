@@ -5,6 +5,7 @@ import NewsletterForm from "../components/NewsletterForm.astro";
 import { posts } from "../data/posts";
 import { tools } from "../data/tools";
 import { testimonials } from "../data/testimonials";
+import { work } from "../data/work";
 import { consultationUrl, emailUrl } from "../data/links";
 
 const marqueeItems = [
@@ -60,39 +61,6 @@ const services = [
     tag: "",
     title: "Data & Analytics",
     desc: "SQL, ETL, warehousing, BI dashboards. From eBay to Dubai's RTA, I've turned messy data into decisions people actually make. Your numbers should work as hard as you do.",
-  },
-];
-
-const work = [
-  {
-    num: "01",
-    title: "Nuur AI: 0 to 300,000 users",
-    tag: "AI · Growth",
-    desc: "Launched an AI product from scratch and scaled it to 300K users, owning roadmap and prioritisation against real market demand.",
-  },
-  {
-    num: "02",
-    title: "20 clinical registries across 4 regions",
-    tag: "Health-tech",
-    desc: "Led product for clinical data platforms deployed across Ireland, the EU, UK and US: regulated, time-sensitive, zero room for error.",
-  },
-  {
-    num: "03",
-    title: "Award-winning aeromedical app",
-    tag: "Delivery",
-    desc: "Real-time air-resource coordination for rapid patient transport. When 'time-critical' means lives, delivery discipline matters.",
-  },
-  {
-    num: "04",
-    title: "Helped teams adapt to AI",
-    tag: "AI · Teams",
-    desc: "I helped teams put AI to productive use in startups, large corporations, and small businesses: Jira MCPs, coding agents, and the working habits that actually stick.",
-  },
-  {
-    num: "05",
-    title: "Enterprise data & BI, from eBay to the RTA",
-    tag: "Data",
-    desc: "ETL pipelines, MicroStrategy migrations and BI reporting that turned raw client data into decision-ready analytics, including managing COVID analytics for the Irish health services, used by the Ministry of Health to drive national decisions.",
   },
 ];
 
@@ -245,17 +213,31 @@ const work = [
         Proof I <span class="highlight highlight--lime">actually deliver</span>
       </h2>
       <div class="work-list stagger">
-        {work.map((w) => (
-          <div class="work-card">
-            <div class="work-num">{w.num}</div>
-            <div>
-              <h3>{w.title}</h3>
-              <p>{w.desc}</p>
+        {work.map((w) =>
+          w.href ? (
+            <a class="work-card" href={w.href}>
+              <div class="work-num">{w.num}</div>
+              <div>
+                <h3>{w.title}</h3>
+                <p>{w.desc}</p>
+              </div>
+              <span class="work-tag">{w.tag}</span>
+            </a>
+          ) : (
+            <div class="work-card">
+              <div class="work-num">{w.num}</div>
+              <div>
+                <h3>{w.title}</h3>
+                <p>{w.desc}</p>
+              </div>
+              <span class="work-tag">{w.tag}</span>
             </div>
-            <span class="work-tag">{w.tag}</span>
-          </div>
-        ))}
+          )
+        )}
       </div>
+      <p class="work-more reveal">
+        <a href="/portfolio" class="btn btn--big">See the portfolio →</a>
+      </p>
     </div>
   </section>
 

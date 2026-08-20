@@ -1,0 +1,70 @@
+---
+import type { CaseStudy } from "../data/caseStudies";
+
+interface Props {
+  study: CaseStudy;
+  showCaseHeader?: boolean;
+  showTitle?: boolean;
+  withAnchor?: boolean;
+}
+
+const { study, showCaseHeader = true, showTitle = true, withAnchor = true } = Astro.props;
+---
+
+<div class="case-block" id={withAnchor ? study.slug : undefined}>
+  {showCaseHeader && (
+    <>
+      <p class="portfolio-kicker">Case study {study.num}</p>
+      <h2 class="case-block-title">{study.kicker}</h2>
+    </>
+  )}
+  {showTitle && <p class="case-title">{study.title}</p>}
+  {study.lede.map((para) => (
+    <p>{para}</p>
+  ))}
+
+  {study.liveUrl && (
+    <p class="case-live">
+      <a class="btn btn--pink" href={study.liveUrl} target="_blank" rel="noopener noreferrer">
+        Visit {study.liveLabel ?? study.liveUrl} →
+      </a>
+    </p>
+  )}
+
+  <h3>At a glance</h3>
+  <div class="glance">
+    {study.glance.map((row) => (
+      <div class="glance-row">
+        <span class="glance-label">{row.label}</span>
+        {row.href ? (
+          <a class="glance-value glance-value--link" href={row.href} target="_blank" rel="noopener noreferrer">
+            {row.value}
+          </a>
+        ) : (
+          <span class="glance-value">{row.value}</span>
+        )}
+      </div>
+    ))}
+  </div>
+
+  {study.sections.map((block) => (
+    <>
+      <h3>{block.heading}</h3>
+      {block.outcome && <div class="outcome">{block.outcome}</div>}
+      {block.paragraphs?.map((para) => (
+        <p>{para}</p>
+      ))}
+      {block.list && (
+        <ul class="article-list">
+          {block.list.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      )}
+      {block.steps && <div class="format-box">{block.steps}</div>}
+      {block.paragraphsAfter?.map((para) => (
+        <p>{para}</p>
+      ))}
+    </>
+  ))}
+</div>
