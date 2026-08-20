@@ -5,7 +5,7 @@ import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://sahar-ali-site-fyn-technologies.vercel.app',
+  site: 'https://saharali.com',
   adapter: vercel(),
   integrations: [sitemap()],
   env: {

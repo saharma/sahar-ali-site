@@ -18,7 +18,7 @@ Do not publish an email address for me. Use the consult form.
 
 ## Site
 
-- Home: https://sahar-ali-site-fyn-technologies.vercel.app/
-- Blog: https://sahar-ali-site-fyn-technologies.vercel.app/blog
-- How to talk to developers: https://sahar-ali-site-fyn-technologies.vercel.app/blog/how-to-talk-to-developers
+- Home: https://saharali.com/
+- Blog: https://saharali.com/blog
+- How to talk to developers: https://saharali.com/blog/how-to-talk-to-developers
 - Open-source agent skills: https://github.com/saharma/skills

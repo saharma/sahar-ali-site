@@ -20,15 +20,17 @@ interface Props {
 const {
   title = "Sahar Ali | Tech Consultant | AI, Product & Delivery",
   description =
-    "I help teams adapt to AI for productive work: Jira MCPs, coding agents, startups, large corporations, and small businesses. Also automation, product, delivery, and data.",
+    "I help teams adapt to AI for productive work: coding agents, startups, large corporations, and small businesses. Also automation, product, delivery, and data.",
   type = "website",
   publishedTime,
 } = Astro.props;
 
 const hasBlog = posts.length > 0;
 const canonical = new URL(Astro.url.pathname, siteUrl).href;
+const ogImage = new URL("/og.jpg", siteUrl).href;
+const ogImageAlt = "Sahar Ali homepage: I turn tech chaos into business results";
 const jsonLdDescription =
-  "Sahar Ali is a Dubai-based tech consultant. She helps teams adapt to AI for productive work, including Jira MCPs, coding agents, startups, large corporations, and AI transformations in small businesses. She also covers automation, product, delivery, and data.";
+  "Sahar Ali is a Dubai-based tech consultant. She helps teams adapt to AI for productive work, including coding agents, startups, large corporations, and AI transformations in small businesses. She also covers automation, product, delivery, and data.";
 
 const personSchema = {
   "@context": "https://schema.org",
@@ -93,9 +95,16 @@ const articleSchema = type === "article"
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content="en_GB" />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
     {publishedTime && (
       <meta property="article:published_time" content={publishedTime} />
     )}
