@@ -4,6 +4,7 @@ import "../styles/global.css";
 import { posts } from "../data/posts";
 import {
   consultationUrl,
+  emailUrl,
   githubUrl,
   linkedinUrl,
   siteUrl,
@@ -136,6 +137,7 @@ const articleSchema = type === "article"
         <a href="/#tools">Tools</a>
         {hasBlog && <a href="/blog">Blog</a>}
         <a href={consultationUrl} class="btn btn--pink" target="_blank" rel="noopener noreferrer">Book a consult ✦</a>
+        <a href={emailUrl} class="btn">Contact me</a>
       </div>
     </nav>
 
@@ -147,6 +149,7 @@ const articleSchema = type === "article"
       <span>© {new Date().getFullYear()} Sahar Ali · Dubai, UAE · working worldwide</span>
       <span class="footer-links">
         <a href={consultationUrl} target="_blank" rel="noopener noreferrer">Book a consult</a>
+        <a href={emailUrl}>Contact me</a>
         <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a href={githubUrl} target="_blank" rel="noopener noreferrer">GitHub</a>
       </span>

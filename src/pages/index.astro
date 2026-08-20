@@ -5,7 +5,7 @@ import NewsletterForm from "../components/NewsletterForm.astro";
 import { posts } from "../data/posts";
 import { tools } from "../data/tools";
 import { testimonials } from "../data/testimonials";
-import { consultationUrl } from "../data/links";
+import { consultationUrl, emailUrl } from "../data/links";
 
 const marqueeItems = [
   "AI Strategy",
@@ -133,6 +133,7 @@ const work = [
       </p>
       <div class="hero-ctas reveal">
         <a href={consultationUrl} class="btn btn--pink btn--big" target="_blank" rel="noopener noreferrer">Book a consult →</a>
+        <a href={emailUrl} class="btn btn--big">Contact me</a>
         <a href="#services" class="btn btn--big">See what I do</a>
       </div>
     </div>
@@ -376,10 +377,11 @@ const work = [
         Whether it's an AI idea you can't scope, a delivery that's gone sideways, or a
         dev team that needs a leader who gets it. The first chat is free and jargon-free.
       </p>
-      <div class="reveal reveal--pop">
+      <div class="hero-ctas reveal reveal--pop">
         <a href={consultationUrl} class="btn btn--pink btn--big" target="_blank" rel="noopener noreferrer">
           Book a consult ✦
         </a>
+        <a href={emailUrl} class="btn btn--big">Contact me</a>
       </div>
     </div>
   </section>

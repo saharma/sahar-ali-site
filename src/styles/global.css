@@ -397,8 +397,8 @@ section {
 }
 
 .sticker--4 {
-  top: 62%;
-  right: 30%;
+  top: 52%;
+  right: 14%;
   background: var(--purple);
   color: var(--cream);
   transform: rotate(-10deg);
@@ -1069,6 +1069,10 @@ section {
   margin-bottom: 1.3rem;
 }
 
+.article-cta .btn {
+  margin: 0.3rem;
+}
+
 /* ---------- CTA footer ---------- */
 .cta {
   text-align: center;
@@ -1083,6 +1087,10 @@ section {
   font-size: 1.25rem;
   max-width: 50ch;
   margin: 1.2rem auto 2.5rem;
+}
+
+.cta .hero-ctas {
+  justify-content: center;
 }
 
 .footer {
