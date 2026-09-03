@@ -1,0 +1,34 @@
+---
+import Icon from "../Icon.astro";
+import type { Photo } from "../../data/creatorMedia";
+
+interface Props {
+  photo: Photo;
+  /** Extra classes applied to the frame, for sizing and rotation. */
+  class?: string;
+  /** Loading hint. Use "eager" for anything above the fold. */
+  loading?: "eager" | "lazy";
+  note?: string;
+}
+
+const {
+  photo,
+  class: className = "",
+  loading = "lazy",
+  note = "Awaiting final image",
+} = Astro.props;
+---
+
+{
+  photo.src ? (
+    <figure class:list={["frame", className]}>
+      <img src={photo.src} alt={photo.alt} loading={loading} decoding="async" />
+    </figure>
+  ) : (
+    <div class:list={["frame", "frame--placeholder", className]} role="img" aria-label={`${photo.label}. ${note}.`}>
+      <span class="frame-icon" aria-hidden="true"><Icon name="camera" size={26} /></span>
+      <span class="frame-label">{photo.label}</span>
+      <span class="frame-note">{note}</span>
+    </div>
+  )
+}

@@ -1,0 +1,275 @@
+---
+import ContentLayout from "../../layouts/ContentLayout.astro";
+import Icon from "../../components/Icon.astro";
+import MediaFrame from "../../components/content/MediaFrame.astro";
+import VideoCard from "../../components/content/VideoCard.astro";
+import CurrentOpportunity from "../../components/content/CurrentOpportunity.astro";
+import CollabForm from "../../components/content/CollabForm.astro";
+import { collaborations, instagramUrl, marqueeItems, styleWords } from "../../data/creator";
+import {
+  categories,
+  heroPortrait,
+  heroSupporting,
+  introPhoto,
+  videos,
+} from "../../data/creatorMedia";
+import { emailUrl } from "../../data/links";
+
+const emailAddress = emailUrl.replace("mailto:", "");
+---
+
+<ContentLayout>
+  <!-- HERO -->
+  <section class="c-hero">
+    <div class="wrap">
+      <div class="c-hero-grid">
+        <div class="c-hero-copy">
+          <div class="hero-kicker reveal">
+            <span class="dot"></span>
+            CREATOR · HOST · STORYTELLER
+          </div>
+          <h1 class="reveal">
+            Content with an actual <span class="highlight highlight--pink">personality</span>.
+          </h1>
+          <p class="c-hero-sub reveal">
+            I’m Sahar, a Sudanese-Irish founder, host and former comedian based in Dubai. I
+            create warm, funny and conversational content about travel, experiences,
+            entrepreneurship and the occasional questionable decision.
+          </p>
+          <div class="hero-ctas reveal">
+            <a href="#contact" class="btn btn--pink btn--big">Work with me</a>
+            <a href="#content" class="btn btn--big">Watch my content</a>
+          </div>
+        </div>
+
+        <div class="c-hero-media reveal reveal--pop">
+          <MediaFrame photo={heroPortrait} class="c-hero-main" loading="eager" />
+          <div class="c-hero-thumbs">
+            {heroSupporting.map((photo) => <MediaFrame photo={photo} loading="eager" />)}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      {[0, 1].map(() => (
+        <>
+          {marqueeItems.map((item) => (
+            <>
+              <span>{item}</span>
+              <span class="star-sep">✦</span>
+            </>
+          ))}
+        </>
+      ))}
+    </div>
+  </div>
+
+  <!-- INTRODUCTION -->
+  <section id="about">
+    <div class="wrap">
+      <div class="c-split">
+        <div class="c-split-body">
+          <span class="section-tag reveal">Who you’re working with</span>
+          <h2 class="section-title reveal">
+            People connect with <span class="highlight highlight--yellow">people</span>.
+          </h2>
+          <div class="reveal">
+            <p>
+              I’m comfortable speaking to a room, a camera or a complete stranger I’ve just
+              decided to interview.
+            </p>
+            <p>
+              Before creating content, I spent years performing comedy, hosting events and
+              building communities. That experience shaped how I show up on camera: expressive,
+              curious, relaxed and able to make people feel included.
+            </p>
+            <p>
+              I create polished content without removing the personality that makes it worth
+              watching.
+            </p>
+          </div>
+        </div>
+        <div class="c-split-media reveal reveal--right">
+          <MediaFrame photo={introPhoto} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED CONTENT -->
+  <section class="reel-band" id="content">
+    <div class="wrap">
+      <span class="section-tag reveal">Featured content</span>
+      <h2 class="section-title reveal">Watch me in action.</h2>
+      <p class="section-lead reveal">
+        A mix of travel, experiences, events, founder life and personality-led storytelling.
+      </p>
+
+      <div class="reel-filters reveal" role="group" aria-label="Filter content by category">
+        <button class="filter-pill" type="button" data-filter="all" aria-pressed="true">
+          Everything
+        </button>
+        {categories.map((c) => (
+          <button class="filter-pill" type="button" data-filter={c.id} aria-pressed="false">
+            {c.label}
+          </button>
+        ))}
+      </div>
+
+      <div class="reel-grid stagger" id="reelGrid">
+        {videos.map((item) => <VideoCard item={item} />)}
+      </div>
+
+      <p class="reel-empty" id="reelEmpty" hidden>Nothing in that category yet.</p>
+    </div>
+  </section>
+
+  <!-- COLLABORATION TYPES -->
+  <section id="collaborate">
+    <div class="wrap">
+      <span class="section-tag reveal">Collaborations</span>
+      <h2 class="section-title reveal">
+        Ways we can <span class="highlight highlight--cyan">work together</span>.
+      </h2>
+      <div class="services-grid collab-grid stagger">
+        {collaborations.map((c) => (
+          <div class="service-card">
+            <div class="service-icon" style={`background:${c.bg}`}>
+              <Icon name={c.icon} size={28} />
+            </div>
+            <h3>{c.title}</h3>
+            <p>{c.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- MY STYLE -->
+  <section class="style-band" id="style">
+    <div class="wrap">
+      <span class="section-tag reveal">My style</span>
+      <h2 class="section-title reveal">What my content feels like.</h2>
+      <div class="word-tags stagger">
+        {styleWords.map((w) => (
+          <span class:list={["word-tag", `word-tag--${w.tone}`]}>{w.word}</span>
+        ))}
+      </div>
+      <p class="style-note reveal">
+        Think less scripted advertisement, more recommendation from the friend whose stories you
+        always watch.
+      </p>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="c-exp">
+        <div>
+          <span class="section-tag reveal">Experience</span>
+          <h2 class="section-title reveal">
+            Comfortable in front of people<br />and <span class="highlight highlight--lime">cameras</span>.
+          </h2>
+          <p class="reveal">
+            My background includes live comedy, event hosting, interviewing, community building
+            and creating regular face-to-camera content. I know how to hold attention, find the
+            interesting part of an experience and communicate it naturally.
+          </p>
+        </div>
+        <div class="c-stat reveal reveal--pop">
+          <span class="stat-number"><span data-count="34" data-suffix="K+">34K+</span></span>
+          <span class="stat-label">Content views in the last 30 days</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE 2 -->
+  <div class="marquee marquee--flip" aria-hidden="true">
+    <div class="marquee-track">
+      {[0, 1].map(() => (
+        <>
+          {["Warm", "Funny", "Conversational", "Expressive", "Curious"].map((item) => (
+            <>
+              <span>{item}</span>
+              <span class="star-sep">✦</span>
+            </>
+          ))}
+        </>
+      ))}
+    </div>
+  </div>
+
+  <!-- CURRENT OPPORTUNITY -->
+  <CurrentOpportunity />
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <span class="section-tag reveal">Contact</span>
+      <h2 class="section-title reveal">
+        Let’s make something people <span class="highlight highlight--pink">actually want to watch</span>.
+      </h2>
+      <p class="c-hero-sub reveal" style="margin: 1rem 0 0;">
+        Tell me about your brand, destination or idea and what you would like to create together.
+      </p>
+
+      <div class="reveal">
+        <CollabForm />
+      </div>
+
+      <div class="contact-direct reveal">
+        <a href={instagramUrl} target="_blank" rel="noopener noreferrer">
+          <Icon name="instagram" size={20} /> @{instagramUrl.split("/").filter(Boolean).pop()}
+        </a>
+        <a href={emailUrl}>
+          <Icon name="message" size={20} /> {emailAddress}
+        </a>
+      </div>
+    </div>
+  </section>
+</ContentLayout>
+
+<script>
+  // Category filter for the content grid.
+  const pills = document.querySelectorAll<HTMLButtonElement>(".filter-pill");
+  const cards = document.querySelectorAll<HTMLElement>("#reelGrid .reel-card");
+  const empty = document.getElementById("reelEmpty");
+
+  pills.forEach((pill) => {
+    pill.addEventListener("click", () => {
+      const filter = pill.dataset.filter || "all";
+      pills.forEach((p) => p.setAttribute("aria-pressed", String(p === pill)));
+
+      let shown = 0;
+      cards.forEach((card) => {
+        const match = filter === "all" || card.dataset.category === filter;
+        card.hidden = !match;
+        if (match) shown += 1;
+      });
+
+      if (empty) empty.hidden = shown > 0;
+    });
+  });
+
+  // Instagram reels load on click so the page stays light until someone asks.
+  document.querySelectorAll<HTMLButtonElement>(".reel-play").forEach((button) => {
+    button.addEventListener("click", () => {
+      const src = button.dataset.embed;
+      if (!src) return;
+
+      const frame = document.createElement("iframe");
+      frame.src = src;
+      frame.title = button.dataset.embedTitle || "Instagram reel";
+      frame.loading = "lazy";
+      frame.allow = "autoplay; clipboard-write; encrypted-media; picture-in-picture";
+      frame.allowFullscreen = true;
+      button.replaceWith(frame);
+    });
+  });
+</script>

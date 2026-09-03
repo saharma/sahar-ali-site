@@ -1,0 +1,117 @@
+---
+import { collabTypes } from "../../data/creator";
+import { emailUrl } from "../../data/links";
+
+const emailAddress = emailUrl.replace("mailto:", "");
+---
+
+<form class="collab-form" id="collabForm" novalidate data-email={emailAddress}>
+  <div class="field">
+    <label for="collabName">Name</label>
+    <input id="collabName" name="name" type="text" autocomplete="name" required />
+  </div>
+
+  <div class="field">
+    <label for="collabBrand">Brand or company</label>
+    <input id="collabBrand" name="brand" type="text" autocomplete="organization" />
+  </div>
+
+  <div class="field">
+    <label for="collabEmail">Email</label>
+    <input id="collabEmail" name="email" type="email" autocomplete="email" required />
+  </div>
+
+  <div class="field">
+    <label for="collabType">Collaboration type</label>
+    <select id="collabType" name="collabType" required>
+      {collabTypes.map((t) => <option value={t}>{t}</option>)}
+    </select>
+  </div>
+
+  <div class="field field--wide">
+    <label for="collabMessage">Message</label>
+    <textarea
+      id="collabMessage"
+      name="message"
+      required
+      placeholder="Tell me about the brand, the destination, the dates and what you would like to create."
+    ></textarea>
+  </div>
+
+  <div class="collab-actions">
+    <button class="btn btn--pink btn--big" type="submit">Send it ✦</button>
+  </div>
+
+  <p class="collab-status" id="collabStatus" role="status" aria-live="polite"></p>
+</form>
+
+<script>
+  const form = document.getElementById("collabForm") as HTMLFormElement | null;
+  const status = document.getElementById("collabStatus");
+
+  const mailtoFallback = (data: Record<string, string>, address: string) => {
+    const subject = `Collaboration: ${data.collabType} (${data.brand || data.name})`;
+    const body = [
+      `Name: ${data.name}`,
+      `Brand or company: ${data.brand || "Not given"}`,
+      `Email: ${data.email}`,
+      `Collaboration type: ${data.collabType}`,
+      "",
+      data.message,
+    ].join("\n");
+    return `mailto:${address}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!status) return;
+
+    status.textContent = "";
+    status.className = "collab-status";
+
+    const invalid = form.querySelector<HTMLInputElement>(":invalid");
+    if (invalid) {
+      status.textContent = "A couple of fields still need filling in.";
+      status.classList.add("is-error");
+      invalid.focus();
+      return;
+    }
+
+    const raw = new FormData(form);
+    const data = Object.fromEntries(
+      [...raw.entries()].map(([k, v]) => [k, String(v).trim()])
+    ) as Record<string, string>;
+
+    const button = form.querySelector("button");
+    button?.setAttribute("disabled", "true");
+
+    const showFallback = () => {
+      const address = form.dataset.email || "";
+      const href = mailtoFallback(data, address);
+      status.classList.add("is-error");
+      status.innerHTML = `Couldn't send that from here. <a href="${href}">Open it as an email instead</a> and it will arrive with everything filled in.`;
+    };
+
+    try {
+      const res = await fetch("/api/collab", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const result = (await res.json()) as { ok?: boolean; error?: string };
+
+      if (!res.ok || !result.ok) {
+        showFallback();
+        return;
+      }
+
+      form.reset();
+      status.textContent = "Got it. I read every one of these and I'll come back to you shortly.";
+      status.classList.add("is-ok");
+    } catch {
+      showFallback();
+    } finally {
+      button?.removeAttribute("disabled");
+    }
+  });
+</script>

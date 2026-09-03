@@ -1,0 +1,29 @@
+---
+import { currentOpportunity } from "../../data/creator";
+
+interface Props {
+  /** Override any field for a one-off, or set show: false in creator.ts to hide the section. */
+  opportunity?: typeof currentOpportunity;
+}
+
+const { opportunity = currentOpportunity } = Astro.props;
+---
+
+{
+  opportunity.show && (
+    <section id="opportunity">
+      <div class="wrap">
+        <div class="opportunity-card reveal reveal--pop">
+          <div>
+            <span class="section-tag">{opportunity.eyebrow}</span>
+            <h2>{opportunity.heading}</h2>
+            <p>{opportunity.body}</p>
+          </div>
+          <a href={opportunity.ctaHref} class="btn btn--pink btn--big">
+            {opportunity.ctaLabel}
+          </a>
+        </div>
+      </div>
+    </section>
+  )
+}

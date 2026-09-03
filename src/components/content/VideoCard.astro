@@ -1,0 +1,53 @@
+---
+import Icon from "../Icon.astro";
+import { categories, type VideoItem } from "../../data/creatorMedia";
+
+interface Props {
+  item: VideoItem;
+}
+
+const { item } = Astro.props;
+const categoryLabel =
+  categories.find((c) => c.id === item.category)?.label ?? item.category;
+const embedSrc = item.reel
+  ? `https://www.instagram.com/reel/${item.reel}/embed/`
+  : undefined;
+---
+
+<article class="reel-card" data-category={item.category}>
+  <div class="reel-media">
+    {item.kind === "file" && item.src && (
+      <video controls preload="metadata" playsinline poster={item.poster} aria-label={item.alt}>
+        <source src={item.src} type="video/mp4" />
+        Your browser cannot play this video.
+      </video>
+    )}
+
+    {item.kind === "reel" && embedSrc && (
+      <button
+        class="reel-play"
+        type="button"
+        data-embed={embedSrc}
+        data-embed-title={item.alt}
+        aria-label={`Play: ${item.title}`}
+      >
+        {item.poster && <img src={item.poster} alt="" loading="lazy" decoding="async" />}
+        <span class="reel-play-mark" aria-hidden="true"><Icon name="play" size={24} /></span>
+        <span class="reel-play-label">Play reel</span>
+      </button>
+    )}
+
+    {(item.kind === "placeholder" || (item.kind === "reel" && !embedSrc) || (item.kind === "file" && !item.src)) && (
+      <div class="frame frame--placeholder" role="img" aria-label={`${item.alt}. Awaiting final video.`}>
+        <span class="frame-icon" aria-hidden="true"><Icon name="play" size={24} /></span>
+        <span class="frame-label">Media placeholder</span>
+        <span class="frame-note">Video to be added</span>
+      </div>
+    )}
+  </div>
+
+  <div class="reel-meta">
+    <h3>{item.title}</h3>
+    <span class="reel-cat">{categoryLabel}</span>
+  </div>
+</article>
