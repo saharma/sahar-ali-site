@@ -65,7 +65,7 @@ a {
 }
 
 ::selection {
-  background: var(--yellow);
+  background: rgba(155, 123, 255, 0.35);
 }
 
 /* ---------- scroll progress bar ---------- */
@@ -438,6 +438,25 @@ section {
   line-height: 1.08;
   text-transform: uppercase;
   max-width: 14ch;
+}
+
+/* Headline highlights need to fragment cleanly when a phrase wraps on mobile. */
+.hero h1 .highlight {
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding: 0 .1em;
+}
+
+.hero h1 .highlight::after {
+  display: none;
+}
+
+.hero h1 .highlight--pink {
+  background: var(--pink);
+}
+
+.hero h1 .highlight--cyan {
+  background: var(--cyan);
 }
 
 .hero-sub {
