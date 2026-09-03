@@ -17,7 +17,14 @@ const { opportunity = currentOpportunity } = Astro.props;
           <div>
             <span class="section-tag">{opportunity.eyebrow}</span>
             <h2>{opportunity.heading}</h2>
-            <p>{opportunity.body}</p>
+            <div class="trip-grid">
+              {opportunity.trips.map((trip) => (
+                <div class="trip-card">
+                  <strong>{trip.city}</strong>
+                  <span>{trip.dates}</span>
+                </div>
+              ))}
+            </div>
           </div>
           <a href={opportunity.ctaHref} class="btn btn--pink btn--big">
             {opportunity.ctaLabel}

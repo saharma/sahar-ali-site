@@ -522,6 +522,34 @@
   margin: 0;
 }
 
+.trip-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.trip-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  background: var(--cream);
+  border: var(--border);
+  padding: 0.9rem 1rem;
+  box-shadow: 4px 4px 0 var(--black);
+}
+
+.trip-card strong {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  text-transform: uppercase;
+}
+
+.trip-card span {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
 @media (max-width: 780px) {
   .opportunity-card {
     grid-template-columns: 1fr;
@@ -531,6 +559,10 @@
   .opportunity-card .btn {
     width: 100%;
     text-align: center;
+  }
+
+  .trip-grid {
+    grid-template-columns: 1fr;
   }
 }
 

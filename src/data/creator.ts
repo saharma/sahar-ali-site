@@ -1,7 +1,6 @@
 // Content and links for content.saharali.com (creator + partnership portfolio).
 
-// TODO: confirm the handle with Sahar before this goes live.
-export const instagramHandle = "saharmali";
+export const instagramHandle = "saharcazm";
 export const instagramUrl = `https://www.instagram.com/${instagramHandle}/`;
 
 export const contentSiteUrl = "https://content.saharali.com";
@@ -45,9 +44,13 @@ export const styleWords = [
 // Set `show: false` to hide the section, or edit the copy when plans change.
 export const currentOpportunity = {
   show: true,
-  eyebrow: "CURRENTLY PLANNING",
-  heading: "Rome & Dublin, September 2026",
-  body: "I'll be in Rome from 8–12 September and Dublin from 12–19 September, and I'm open to selected hotel, travel and experience partnerships.",
+  eyebrow: "TRAVEL DATES",
+  heading: "Where I'll be this September",
+  trips: [
+    { city: "Rome", dates: "8–12 September" },
+    { city: "Dublin", dates: "12–19 September" },
+    { city: "Istanbul", dates: "19–27 September" },
+  ],
   ctaLabel: "Discuss a collaboration",
   ctaHref: "#contact",
 };

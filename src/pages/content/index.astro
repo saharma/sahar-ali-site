@@ -14,7 +14,6 @@ import {
 } from "../../data/creatorMedia";
 import { emailUrl } from "../../data/links";
 
-const emailAddress = emailUrl.replace("mailto:", "");
 ---
 
 <ContentLayout>
@@ -168,7 +167,7 @@ const emailAddress = emailUrl.replace("mailto:", "");
           </p>
         </div>
         <div class="c-stat reveal reveal--pop">
-          <span class="stat-number"><span data-count="34" data-suffix="K+">34K+</span></span>
+          <span class="stat-number"><span data-count="90" data-suffix="K+">90K+</span></span>
           <span class="stat-label">Content views in the last 30 days</span>
         </div>
       </div>
@@ -214,27 +213,9 @@ const emailAddress = emailUrl.replace("mailto:", "");
           <Icon name="instagram" size={20} /> @{instagramUrl.split("/").filter(Boolean).pop()}
         </a>
         <a href={emailUrl}>
-          <Icon name="message" size={20} /> {emailAddress}
+          <Icon name="message" size={20} /> Send me a message
         </a>
       </div>
     </div>
   </section>
 </ContentLayout>
-
-<script>
-  // Instagram reels load on click so the page stays light until someone asks.
-  document.querySelectorAll<HTMLButtonElement>(".reel-play").forEach((button) => {
-    button.addEventListener("click", () => {
-      const src = button.dataset.embed;
-      if (!src) return;
-
-      const frame = document.createElement("iframe");
-      frame.src = src;
-      frame.title = button.dataset.embedTitle || "Instagram reel";
-      frame.loading = "lazy";
-      frame.allow = "autoplay; clipboard-write; encrypted-media; picture-in-picture";
-      frame.allowFullscreen = true;
-      button.replaceWith(frame);
-    });
-  });
-</script>
