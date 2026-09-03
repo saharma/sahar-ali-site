@@ -24,7 +24,7 @@
 .e-gallery-meta { text-align:right; }
 .e-gallery-meta small { display:block; margin-top:.3rem; font-size:.72rem; font-weight:700; letter-spacing:.04em; }
 .e-gallery-meta a { color:inherit; text-underline-offset:2px; }
-.e-photo-grid { display:grid; grid-template-columns:repeat(12,1fr); grid-auto-rows:210px; gap:1.25rem; }
+.e-photo-grid { display:grid; grid-template-columns:repeat(12,1fr); grid-auto-rows:210px; grid-auto-flow:dense; gap:1.25rem; }
 .e-gallery-photo { grid-column:span 4; margin:0; border:var(--border); box-shadow:var(--shadow); background:var(--cream); padding:8px; transform:rotate(-1deg); }
 .e-gallery-photo:nth-child(even) { transform:rotate(1.2deg); }
 .e-gallery-photo--wide { grid-column:span 8; }
