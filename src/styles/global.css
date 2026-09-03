@@ -355,6 +355,53 @@ section {
   position: relative;
 }
 
+.home-hero-copy {
+  position: relative;
+  z-index: 2;
+}
+
+.home-hero-portrait {
+  position: absolute;
+  z-index: 1;
+  width: min(39vw, 470px);
+  right: -1rem;
+  bottom: -4rem;
+  line-height: 0;
+  filter: drop-shadow(8px 8px 0 var(--black));
+}
+
+.home-hero-portrait img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.home-hero-copy .hero-sub {
+  max-width: 48ch;
+}
+
+@media (min-width: 961px) {
+  .home-hero-copy {
+    padding-right: 32%;
+  }
+}
+
+@media (max-width: 960px) {
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .home-hero-portrait {
+    position: relative;
+    width: min(78vw, 430px);
+    right: auto;
+    bottom: -4rem;
+    justify-self: center;
+    margin-top: -1rem;
+  }
+}
+
 .hero-kicker {
   display: inline-flex;
   align-items: center;
