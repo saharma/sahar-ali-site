@@ -8,6 +8,12 @@ import { testimonials } from "../data/testimonials";
 import { work } from "../data/work";
 import { consultationUrl, emailUrl } from "../data/links";
 
+export const prerender = false;
+
+if (new URL(Astro.request.url).hostname === "content.saharali.com") {
+  return Astro.redirect("/content/", 307);
+}
+
 const marqueeItems = [
   "AI Strategy",
   "Automation",
