@@ -21,8 +21,8 @@ export const collaborations = [
   {
     icon: "camera",
     bg: "var(--cyan)",
-    title: "Content creation",
-    desc: "Natural short-form videos, photographs and social assets created for your brand's own channels.",
+    title: "UGC content creation",
+    desc: "Natural short-form videos, photographs and social assets made for your brand to publish on its own social channels and website.",
   },
   {
     icon: "mic",
@@ -58,7 +58,7 @@ export const currentOpportunity = {
 export const collabTypes = [
   "Influencer partnership",
   "Hosted stay or experience",
-  "Content creation",
+  "UGC for brand channels",
   "Hosting or presenting",
   "Something else",
 ];
