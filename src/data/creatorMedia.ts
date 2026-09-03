@@ -49,16 +49,8 @@ export const introPhoto: Photo = {
   position: "center 38%",
 };
 
-export const categories = [
-  { id: "travel", label: "Travel & Experiences" },
-  { id: "lifestyle", label: "Lifestyle" },
-  { id: "founder", label: "Founder Life" },
-  { id: "events", label: "Events & Hosting" },
-];
-
 export interface VideoItem {
-  kind: "reel" | "file" | "placeholder";
-  category: (typeof categories)[number]["id"];
+  kind: "reel";
   title: string;
   /** Instagram shortcode, for kind: "reel". */
   reel?: string;
@@ -70,39 +62,33 @@ export interface VideoItem {
 
 export const videos: VideoItem[] = [
   {
-    kind: "placeholder",
-    category: "travel",
-    title: "Travel video slot",
-    alt: "Placeholder for a travel and experiences video",
+    kind: "reel", title: "Instagram reel 1", reel: "DaiRQ80NDJS",
+    alt: "Play Sahar Ali's Instagram reel",
   },
   {
-    kind: "placeholder",
-    category: "travel",
-    title: "Hotel stay slot",
-    alt: "Placeholder for a hotel stay video",
+    kind: "reel", title: "Instagram reel 2", reel: "DZrc8rGBNSc",
+    alt: "Play Sahar Ali's Instagram reel",
   },
   {
-    kind: "placeholder",
-    category: "lifestyle",
-    title: "Lifestyle video slot",
-    alt: "Placeholder for a lifestyle video",
+    kind: "reel", title: "Instagram reel 3", reel: "DYKEbEKsIAs",
+    alt: "Play Sahar Ali's Instagram reel",
   },
   {
-    kind: "placeholder",
-    category: "founder",
-    title: "Founder life slot",
-    alt: "Placeholder for a founder life video",
+    kind: "reel", title: "Instagram reel 4", reel: "DMYCkgPpRV-",
+    alt: "Play Sahar Ali's Instagram reel",
   },
   {
-    kind: "placeholder",
-    category: "events",
-    title: "Event hosting slot",
-    alt: "Placeholder for an event hosting video",
+    kind: "reel", title: "Instagram reel 5", reel: "DLuoIWfo_4D",
+    alt: "Play Sahar Ali's Instagram reel",
   },
   {
-    kind: "placeholder",
-    category: "events",
-    title: "Presenting slot",
-    alt: "Placeholder for an on-camera presenting video",
+    kind: "reel", title: "Instagram reel 6", reel: "DK66t4SpLaX",
+    alt: "Play Sahar Ali's Instagram reel",
   },
+  { kind: "reel", title: "Instagram reel 7", reel: "C-sJXJLop-Q", alt: "Play Sahar Ali's Instagram reel" },
+  { kind: "reel", title: "Instagram reel 8", reel: "C-moTxRozMD", alt: "Play Sahar Ali's Instagram reel" },
+  { kind: "reel", title: "Instagram reel 9", reel: "C-S8GPpyWE6", alt: "Play Sahar Ali's Instagram reel" },
+  { kind: "reel", title: "Instagram reel 10", reel: "C-VZwRaSYek", alt: "Play Sahar Ali's Instagram reel" },
+  { kind: "reel", title: "Instagram reel 11", reel: "C-Ig2POylbH", alt: "Play Sahar Ali's Instagram reel" },
+  { kind: "reel", title: "Instagram reel 12", reel: "C-F_KzAyXaN", alt: "Play Sahar Ali's Instagram reel" },
 ];

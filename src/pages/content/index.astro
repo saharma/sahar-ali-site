@@ -7,7 +7,6 @@ import CurrentOpportunity from "../../components/content/CurrentOpportunity.astr
 import CollabForm from "../../components/content/CollabForm.astro";
 import { collaborations, instagramUrl, marqueeItems, styleWords } from "../../data/creator";
 import {
-  categories,
   heroPortrait,
   heroSupporting,
   introPhoto,
@@ -109,22 +108,9 @@ const emailAddress = emailUrl.replace("mailto:", "");
         A mix of travel, experiences, events, founder life and personality-led storytelling.
       </p>
 
-      <div class="reel-filters reveal" role="group" aria-label="Filter content by category">
-        <button class="filter-pill" type="button" data-filter="all" aria-pressed="true">
-          Everything
-        </button>
-        {categories.map((c) => (
-          <button class="filter-pill" type="button" data-filter={c.id} aria-pressed="false">
-            {c.label}
-          </button>
-        ))}
-      </div>
-
       <div class="reel-grid stagger" id="reelGrid">
         {videos.map((item) => <VideoCard item={item} />)}
       </div>
-
-      <p class="reel-empty" id="reelEmpty" hidden>Nothing in that category yet.</p>
     </div>
   </section>
 
@@ -236,27 +222,6 @@ const emailAddress = emailUrl.replace("mailto:", "");
 </ContentLayout>
 
 <script>
-  // Category filter for the content grid.
-  const pills = document.querySelectorAll<HTMLButtonElement>(".filter-pill");
-  const cards = document.querySelectorAll<HTMLElement>("#reelGrid .reel-card");
-  const empty = document.getElementById("reelEmpty");
-
-  pills.forEach((pill) => {
-    pill.addEventListener("click", () => {
-      const filter = pill.dataset.filter || "all";
-      pills.forEach((p) => p.setAttribute("aria-pressed", String(p === pill)));
-
-      let shown = 0;
-      cards.forEach((card) => {
-        const match = filter === "all" || card.dataset.category === filter;
-        card.hidden = !match;
-        if (match) shown += 1;
-      });
-
-      if (empty) empty.hidden = shown > 0;
-    });
-  });
-
   // Instagram reels load on click so the page stays light until someone asks.
   document.querySelectorAll<HTMLButtonElement>(".reel-play").forEach((button) => {
     button.addEventListener("click", () => {
