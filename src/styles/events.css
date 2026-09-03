@@ -5,6 +5,8 @@
 .e-hero { padding:4.8rem 0 5.5rem; overflow:hidden; }
 .e-hero-grid { display:grid; grid-template-columns:minmax(0,1.08fr) minmax(340px,.92fr); gap:3.2rem; align-items:center; }
 .e-hero h1 { font:clamp(2.8rem,6.5vw,5.3rem)/1.02 var(--font-display); text-transform:uppercase; max-width:12ch; }
+.e-hero h1 .highlight { white-space:normal; -webkit-box-decoration-break:clone; box-decoration-break:clone; background:var(--pink); padding:0 .1em; }
+.e-hero h1 .highlight::after { display:none; }
 .e-hero-sub { max-width:55ch; font-size:1.25rem; font-weight:500; margin:1.8rem 0 2.1rem; }
 .e-hero-visual { position:relative; min-height:570px; display:grid; place-items:center; }
 .e-photo-card { width:min(100%,410px); aspect-ratio:4/5; background:var(--yellow); border:var(--border); box-shadow:12px 12px 0 var(--black); padding:12px; transform:rotate(2.5deg); position:relative; }
