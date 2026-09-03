@@ -473,8 +473,9 @@ section {
 }
 
 .sticker--2 {
-  top: 34%;
-  right: 12%;
+  top: auto;
+  bottom: 7%;
+  right: -1%;
   background: var(--cyan);
   transform: rotate(-6deg);
 }
@@ -487,18 +488,11 @@ section {
 }
 
 .sticker--4 {
-  top: 52%;
-  right: 14%;
+  top: 46%;
+  right: -2%;
   background: var(--purple);
   color: var(--cream);
   transform: rotate(-10deg);
-}
-
-/* These figures already appear in the stats row below. Keeping them out of
-   the desktop hero leaves the portrait and face completely unobstructed. */
-.sticker--2,
-.sticker--4 {
-  display: none;
 }
 
 @media (max-width: 900px) {
