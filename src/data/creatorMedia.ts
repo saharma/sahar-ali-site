@@ -88,7 +88,4 @@ export const videos: VideoItem[] = [
   { kind: "reel", title: "Instagram reel 7", reel: "C-sJXJLop-Q", alt: "Play Sahar Ali's Instagram reel" },
   { kind: "reel", title: "Instagram reel 8", reel: "C-moTxRozMD", alt: "Play Sahar Ali's Instagram reel" },
   { kind: "reel", title: "Instagram reel 9", reel: "C-S8GPpyWE6", alt: "Play Sahar Ali's Instagram reel" },
-  { kind: "reel", title: "Instagram reel 10", reel: "C-VZwRaSYek", alt: "Play Sahar Ali's Instagram reel" },
-  { kind: "reel", title: "Instagram reel 11", reel: "C-Ig2POylbH", alt: "Play Sahar Ali's Instagram reel" },
-  { kind: "reel", title: "Instagram reel 12", reel: "C-F_KzAyXaN", alt: "Play Sahar Ali's Instagram reel" },
 ];
