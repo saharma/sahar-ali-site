@@ -30,6 +30,7 @@
 .e-gallery-photo--wide { grid-column:span 8; }
 .e-gallery-photo--portrait { grid-row:span 2; }
 .e-gallery-photo img { display:block; width:100%; height:100%; object-fit:cover; border:2px solid var(--black); }
+.e-gallery-photo--focus-top img { object-position:center 12%; }
 .e-gallery-photo--portrait img { object-position:center 28%; }
 .e-gallery-photo--full img { object-fit:contain; object-position:center; background:var(--black); }
 .e-services { background:var(--cream); }

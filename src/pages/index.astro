@@ -3,7 +3,6 @@ import Layout from "../layouts/Layout.astro";
 import Icon from "../components/Icon.astro";
 import NewsletterForm from "../components/NewsletterForm.astro";
 import { posts } from "../data/posts";
-import { tools } from "../data/tools";
 import { testimonials } from "../data/testimonials";
 import { work } from "../data/work";
 import { consultationUrl, emailUrl } from "../data/links";
@@ -292,34 +291,6 @@ const services = [
       ))}
     </div>
   </div>
-
-  <!-- TOOLS -->
-  <section class="tools" id="tools">
-    <div class="wrap">
-      <span class="section-tag reveal">Tools</span>
-      <h2 class="section-title reveal">
-        Things I <span class="highlight highlight--yellow">built to use</span>
-      </h2>
-      <p class="hero-sub reveal" style="margin-top: 0;">
-        Open-source skills, agents and utilities. More will land here as I ship them.
-      </p>
-      <div class="blog-grid stagger">
-        {tools.map((t) => (
-          <a class="blog-card" href={t.href} target="_blank" rel="noopener noreferrer">
-            <div class="blog-card-top">
-              <span class="blog-icon"><Icon name={t.icon} size={40} /></span>
-              <span class="read-time">{t.tag}</span>
-            </div>
-            <div class="blog-card-body">
-              <h3>{t.title}</h3>
-              <p>{t.desc}</p>
-              <span class="card-cta">{t.cta}</span>
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
 
   {posts.length > 0 && (
     <section class="blog" id="blog">

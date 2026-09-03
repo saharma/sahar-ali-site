@@ -1,0 +1,241 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+import { tools } from "../data/tools";
+---
+
+<Layout title="Free AI Tools | Sahar Ali" description="Useful little tools you can use without adding another subscription. Start with Recipe Remix: create, resize, adapt and save recipes.">
+  <section class="tools-hero">
+    <div class="wrap tools-hero-grid">
+      <div>
+        <span class="section-tag">Tools</span>
+        <h1>Why subscribe when we can <span>make our own?</span></h1>
+        <p>We’re living in a time where we can create our own tools instead of subscribing to another app for every tiny job. So I’m making the useful little things I wish already existed and sharing them here.</p>
+      </div>
+      <div class="tools-sticker" aria-hidden="true">SMALL TOOLS<br />BIG RELIEF ✦</div>
+    </div>
+  </section>
+
+  <section class="tool-directory">
+    <div class="wrap">
+      <p class="directory-label">Pick a tool</p>
+      <div class="tool-card-grid">
+        {tools.map((tool, index) => (
+          <a class={`tool-card tool-card--${index % 2 ? "purple" : "yellow"}`} href={tool.href} target={tool.external ? "_blank" : undefined} rel={tool.external ? "noopener noreferrer" : undefined}>
+            <span class="tool-card-icon"><Icon name={tool.icon} size={34} /></span>
+            <span class="read-time">{tool.tag}</span>
+            <h2>{tool.title}</h2>
+            <p>{tool.desc}</p>
+            <strong>{tool.cta}</strong>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="recipe-section" id="recipe-remix">
+    <div class="wrap">
+      <div class="recipe-heading">
+        <span class="section-tag">Tool 01</span>
+        <h2>Recipe <span>Remix</span></h2>
+        <p>I kept using AI to tweak recipes, work with whatever was left in my fridge, and ask deeply important questions like “how long should I air-fry this?” The useful answers were easy. Finding them again was not. So I built Recipe Remix to create, customise and actually save the recipes I want to cook.</p>
+      </div>
+
+      <div class="recipe-app" id="recipeApp">
+        <aside class="recipe-controls">
+          <form id="recipeSearch">
+            <label for="recipeQuery">What do you want to make?</label>
+            <textarea id="recipeQuery" maxlength="500" required placeholder="A quick mushroom risotto…"></textarea>
+            <fieldset>
+              <legend>How many people?</legend>
+              <div class="people-picker">
+                <button type="button" id="peopleMinus" aria-label="One fewer person">−</button>
+                <output id="peopleCount">4</output>
+                <button type="button" id="peoplePlus" aria-label="One more person">+</button>
+              </div>
+            </fieldset>
+            <button class="btn btn--black recipe-submit" type="submit">Find my recipe ✦</button>
+          </form>
+
+          <div class="saved-panel">
+            <h3>Saved on this device</h3>
+            <div id="savedRecipes"><p class="saved-empty">No saved recipes yet.</p></div>
+          </div>
+        </aside>
+
+        <div class="recipe-result" id="recipeResult" aria-live="polite">
+          <div class="recipe-empty">
+            <span aria-hidden="true">🍋</span>
+            <h3>Your next favourite recipe starts here.</h3>
+            <p>Search on the left. Once it’s ready, you can change absolutely anything.</p>
+          </div>
+        </div>
+      </div>
+      <p class="recipe-fineprint">Recipes are generated with AI. Check allergens, temperatures and dietary requirements before cooking. Saved recipes stay in your browser.</p>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  import { track } from "@vercel/analytics";
+
+  type Ingredient = { amount: string; item: string };
+  type Recipe = { id?: string; title: string; description: string; servings: number; prepTime: string; cookTime: string; ingredients: Ingredient[]; steps: string[]; notes: string[] };
+  const storageKey = "sahar_recipe_remix";
+  const query = document.querySelector<HTMLTextAreaElement>("#recipeQuery")!;
+  const count = document.querySelector<HTMLOutputElement>("#peopleCount")!;
+  const result = document.querySelector<HTMLDivElement>("#recipeResult")!;
+  const savedList = document.querySelector<HTMLDivElement>("#savedRecipes")!;
+  const submit = document.querySelector<HTMLButtonElement>(".recipe-submit")!;
+  let people = 4;
+  let current: Recipe | null = null;
+
+  const readSaved = (): Recipe[] => { try { return JSON.parse(localStorage.getItem(storageKey) || "[]"); } catch { return []; } };
+  const writeSaved = (recipes: Recipe[]) => localStorage.setItem(storageKey, JSON.stringify(recipes));
+  const escapeHtml = (value: unknown) => String(value ?? "").replace(/[&<>'"]/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[char]!);
+
+  function recipeText(recipe: Recipe) {
+    return `${recipe.title}\n\n${recipe.description}\n\nServes ${recipe.servings} · Prep ${recipe.prepTime} · Cook ${recipe.cookTime}\n\nINGREDIENTS\n${recipe.ingredients.map(i => `• ${i.amount} ${i.item}`).join("\n")}\n\nMETHOD\n${recipe.steps.map((step, i) => `${i + 1}. ${step}`).join("\n\n")}\n\nNOTES\n${recipe.notes.map(note => `• ${note}`).join("\n")}`;
+  }
+
+  function renderSaved() {
+    const recipes = readSaved();
+    savedList.innerHTML = recipes.length ? recipes.map(recipe => `<div class="saved-recipe"><button data-open="${escapeHtml(recipe.id)}"><strong>${escapeHtml(recipe.title)}</strong><span>Serves ${recipe.servings}</span></button><button class="saved-delete" data-delete="${escapeHtml(recipe.id)}" aria-label="Delete ${escapeHtml(recipe.title)}">×</button></div>`).join("") : '<p class="saved-empty">No saved recipes yet.</p>';
+  }
+
+  function renderRecipe(recipe: Recipe, message = "") {
+    current = recipe;
+    result.innerHTML = `<article class="recipe-paper"><header><span>MADE FOR YOU</span><h3>${escapeHtml(recipe.title)}</h3><p>${escapeHtml(recipe.description)}</p><div class="recipe-meta"><b>${recipe.servings} people</b><b>${escapeHtml(recipe.prepTime)} prep</b><b>${escapeHtml(recipe.cookTime)} cook</b></div></header><form id="adaptRecipe" class="adapt-form"><label class="sr-only" for="adaptPrompt">Change this recipe</label><input id="adaptPrompt" maxlength="500" required placeholder="Change it… e.g. I only have 100g of butter" /><button type="submit">Update recipe →</button></form>${message ? `<p class="recipe-message">${escapeHtml(message)}</p>` : ""}<div class="recipe-columns"><section><h4>Ingredients</h4><ul>${recipe.ingredients.map(i => `<li><b>${escapeHtml(i.amount)}</b><span>${escapeHtml(i.item)}</span></li>`).join("")}</ul></section><section><h4>Method</h4><ol>${recipe.steps.map(step => `<li>${escapeHtml(step)}</li>`).join("")}</ol></section></div>${recipe.notes?.length ? `<aside class="recipe-notes"><h4>Good to know</h4>${recipe.notes.map(note => `<p>✦ ${escapeHtml(note)}</p>`).join("")}</aside>` : ""}<footer><button id="saveRecipe" class="btn btn--black">Save locally</button><button id="emailRecipe" class="btn">Email to myself</button></footer></article>`;
+    document.querySelector("#adaptRecipe")?.addEventListener("submit", adaptCurrent);
+    document.querySelector("#saveRecipe")?.addEventListener("click", saveCurrent);
+    document.querySelector("#emailRecipe")?.addEventListener("click", emailCurrent);
+  }
+
+  function setLoading(label: string) {
+    result.innerHTML = `<div class="recipe-loading"><span>✦</span><h3>${escapeHtml(label)}</h3><p>Stirring, tasting, doing the maths…</p></div>`;
+  }
+
+  async function callRecipe(payload: object) {
+    const response = await fetch("/api/recipe", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || "Something went wrong.");
+    return data.recipe as Recipe;
+  }
+
+  document.querySelector("#peopleMinus")?.addEventListener("click", () => { people = Math.max(1, people - 1); count.value = String(people); });
+  document.querySelector("#peoplePlus")?.addEventListener("click", () => { people = Math.min(30, people + 1); count.value = String(people); });
+  document.querySelector("#recipeSearch")?.addEventListener("submit", async event => {
+    event.preventDefault();
+    submit.disabled = true; setLoading("Finding your recipe");
+    try { const recipe = await callRecipe({ query: query.value, servings: people }); renderRecipe(recipe); track("recipe_generated", { servings: people }); }
+    catch (error) { result.innerHTML = `<div class="recipe-error"><h3>That didn’t cook properly.</h3><p>${escapeHtml(error instanceof Error ? error.message : "Please try again.")}</p></div>`; }
+    finally { submit.disabled = false; }
+  });
+
+  async function adaptCurrent(event: Event) {
+    event.preventDefault(); if (!current) return;
+    const prompt = document.querySelector<HTMLInputElement>("#adaptPrompt")!;
+    setLoading("Remixing your recipe");
+    try { const recipe = await callRecipe({ recipe: current, instruction: prompt.value }); renderRecipe({ ...recipe, id: current.id }); track("recipe_adapted"); }
+    catch (error) { renderRecipe(current, error instanceof Error ? error.message : "Please try again."); }
+  }
+
+  function saveCurrent() {
+    if (!current) return;
+    current.id ||= crypto.randomUUID();
+    writeSaved([current, ...readSaved().filter(item => item.id !== current?.id)]);
+    renderSaved(); renderRecipe(current, "Saved on this device."); track("recipe_saved");
+  }
+
+  function emailCurrent() {
+    if (!current) return;
+    location.href = `mailto:?subject=${encodeURIComponent(current.title)}&body=${encodeURIComponent(recipeText(current))}`;
+    track("recipe_emailed");
+  }
+
+  savedList.addEventListener("click", event => {
+    const target = (event.target as HTMLElement).closest<HTMLButtonElement>("button");
+    if (!target) return;
+    if (target.dataset.open) { const recipe = readSaved().find(item => item.id === target.dataset.open); if (recipe) { renderRecipe(recipe); recipeSection.scrollIntoView({ behavior: "smooth" }); } }
+    if (target.dataset.delete) { writeSaved(readSaved().filter(item => item.id !== target.dataset.delete)); renderSaved(); }
+  });
+
+  const recipeSection = document.querySelector<HTMLElement>("#recipe-remix")!;
+  track("tools_page_viewed");
+  renderSaved();
+</script>
+
+<style is:global>
+  .tools-hero { padding: 6rem 0; background: var(--cyan); border-bottom: var(--border); overflow: hidden; }
+  .tools-hero-grid { display: grid; grid-template-columns: 1fr 300px; gap: 4rem; align-items: center; }
+  .tools-hero h1 { font: clamp(3.2rem, 7vw, 6.8rem)/.94 var(--font-display); text-transform: uppercase; max-width: 12ch; letter-spacing: -.04em; }
+  .tools-hero h1 span { background: var(--yellow); padding: 0 .08em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+  .tools-hero p { max-width: 62ch; margin-top: 2rem; font-size: clamp(1.15rem, 2vw, 1.4rem); font-weight: 600; }
+  .tools-sticker { background: var(--pink); color: var(--black); border: var(--border); box-shadow: var(--shadow); padding: 2.4rem 1.5rem; font: 2rem/1.05 var(--font-display); text-align: center; transform: rotate(5deg); }
+  .tool-directory { padding: 4.5rem 0; }
+  .directory-label { font-weight: 800; text-transform: uppercase; letter-spacing: .12em; margin-bottom: 1.2rem; }
+  .tool-card-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1.5rem; }
+  .tool-card { min-height: 300px; border: var(--border); box-shadow: var(--shadow); padding: 1.5rem; text-decoration: none; display: grid; grid-template-columns: 1fr auto; align-content: start; transition: transform .15s ease, box-shadow .15s ease; }
+  .tool-card:hover { transform: translate(-4px,-4px); box-shadow: 11px 11px 0 var(--black); }
+  .tool-card--yellow { background: var(--yellow); } .tool-card--purple { background: var(--purple); }
+  .tool-card-icon { width: 62px; height: 62px; display: grid; place-items: center; background: white; border: var(--border); }
+  .tool-card .read-time { align-self: start; justify-self: end; background: var(--black); color: white; border: 2px solid var(--black); box-shadow: 3px 3px 0 rgba(255,255,255,.8); padding: .3rem .65rem; font-size: .72rem; font-weight: 900; letter-spacing: .08em; line-height: 1; text-transform: uppercase; transform: rotate(2deg); }
+  .tool-card h2, .tool-card p, .tool-card strong { grid-column: 1/-1; }
+  .tool-card h2 { font: 2rem var(--font-display); text-transform: uppercase; margin-top: 2rem; }
+  .tool-card p { max-width: 45ch; margin: .5rem 0 1.4rem; }
+  .tool-card strong { margin-top: auto; text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 5px; }
+  .recipe-section { background: var(--lime); border-block: var(--border); padding: 5rem 0 6rem; scroll-margin-top: 75px; }
+  .recipe-heading { max-width: 760px; margin-bottom: 2.5rem; }
+  .recipe-heading h2 { font: clamp(3rem, 6vw, 5.5rem)/1 var(--font-display); text-transform: uppercase; }
+  .recipe-heading h2 span { color: var(--pink); -webkit-text-stroke: 2px var(--black); }
+  .recipe-heading p { font-size: 1.2rem; font-weight: 600; margin-top: 1rem; }
+  .recipe-app { display: grid; grid-template-columns: 340px minmax(0,1fr); border: var(--border); box-shadow: 12px 12px 0 var(--black); min-height: 680px; background: white; }
+  .recipe-controls { padding: 1.5rem; border-right: var(--border); background: var(--cream); }
+  .recipe-controls form { display: grid; gap: 1.1rem; }
+  .recipe-controls label, .recipe-controls legend { font-weight: 800; }
+  .recipe-controls textarea, .adapt-form input { width: 100%; font: inherit; border: var(--border); padding: .8rem; background: white; resize: vertical; }
+  .recipe-controls textarea:focus, .adapt-form input:focus { outline: 4px solid var(--cyan); outline-offset: 2px; }
+  .recipe-controls fieldset { border: 0; }
+  .people-picker { display: grid; grid-template-columns: 46px 1fr 46px; align-items: center; margin-top: .5rem; border: var(--border); background: white; }
+  .people-picker button { height: 46px; border: 0; background: var(--yellow); font: 1.6rem var(--font-display); cursor: pointer; }
+  .people-picker button:first-child { border-right: var(--border); } .people-picker button:last-child { border-left: var(--border); }
+  .people-picker output { text-align: center; font: 1.35rem var(--font-display); }
+  .recipe-submit { width: 100%; cursor: pointer; }
+  .recipe-submit:disabled { opacity: .55; cursor: wait; }
+  .saved-panel { margin-top: 2rem; padding-top: 1.4rem; border-top: 3px dashed var(--black); }
+  .saved-panel h3 { font: 1rem var(--font-display); text-transform: uppercase; margin-bottom: .8rem; }
+  .saved-empty { font-size: .9rem; opacity: .65; }
+  .saved-recipe { display: flex; border: 2px solid var(--black); background: white; margin-bottom: .55rem; }
+  .saved-recipe button { border: 0; background: transparent; padding: .65rem; text-align: left; cursor: pointer; }
+  .saved-recipe button:first-child { flex: 1; min-width: 0; } .saved-recipe strong, .saved-recipe span { display: block; } .saved-recipe strong { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .saved-recipe span { font-size: .75rem; }
+  .saved-delete { font-size: 1.35rem; }
+  .recipe-result { min-width: 0; }
+  .recipe-empty, .recipe-loading, .recipe-error { min-height: 680px; display: grid; place-content: center; text-align: center; padding: 2rem; }
+  .recipe-empty > span, .recipe-loading > span { font-size: 4.5rem; }
+  .recipe-empty h3, .recipe-loading h3, .recipe-error h3 { font: clamp(1.6rem,3vw,2.3rem)/1.1 var(--font-display); text-transform: uppercase; max-width: 18ch; margin: 1rem auto .5rem; }
+  .recipe-loading > span { animation: spin 2s linear infinite; }
+  .recipe-paper { background: #fff; }
+  .recipe-paper header { padding: 2.25rem 2.4rem; background: var(--yellow); border-bottom: var(--border); position: relative; overflow: hidden; }
+  .recipe-paper header::after { content: "✦"; position: absolute; right: 1.5rem; top: .5rem; font: 7rem/1 var(--font-display); opacity: .12; transform: rotate(12deg); }
+  .recipe-paper header > span { font-weight: 900; letter-spacing: .15em; font-size: .75rem; }
+  .recipe-paper h3 { font: clamp(2.2rem,4vw,3.9rem)/.96 var(--font-display); text-transform: uppercase; margin: .5rem 0 1rem; max-width: 15ch; position: relative; z-index: 1; }
+  .recipe-paper header p { max-width: 58ch; font-weight: 600; font-size: 1.05rem; position: relative; z-index: 1; }
+  .recipe-meta { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.35rem; position: relative; z-index: 1; }
+  .recipe-meta b { background: white; border: 2px solid var(--black); box-shadow: 2px 2px 0 var(--black); padding: .32rem .7rem; font-size: .82rem; text-transform: uppercase; }
+  .adapt-form { display: grid; grid-template-columns: 1fr auto; margin: 1.5rem 2rem; }
+  .adapt-form button { border: var(--border); border-left: 0; background: var(--cyan); padding: 0 1rem; font-weight: 900; cursor: pointer; }
+  .recipe-message { margin: 0 2rem 1rem; background: var(--lime); border: 2px solid var(--black); padding: .5rem .8rem; font-weight: 700; }
+  .recipe-columns { display: grid; grid-template-columns: minmax(240px,.78fr) minmax(300px,1.22fr); gap: 2.75rem; padding: 1.25rem 2.4rem 2.4rem; }
+  .recipe-columns h4, .recipe-notes h4 { font: 1.3rem var(--font-display); text-transform: uppercase; margin-bottom: 1rem; display: inline-block; background: var(--pink); padding: .18rem .45rem; border: 2px solid var(--black); transform: rotate(-1deg); }
+  .recipe-columns ul { list-style: none; } .recipe-columns ul li { display: grid; grid-template-columns: minmax(76px,auto) 1fr; gap: .75rem; padding: .65rem 0; border-bottom: 2px dotted rgba(20,20,20,.22); align-items: baseline; }
+  .recipe-columns ul li b { font-size: .9rem; }
+  .recipe-columns ol { list-style: none; counter-reset: steps; padding: 0; display: grid; gap: 1rem; } .recipe-columns ol li { counter-increment: steps; display: grid; grid-template-columns: 34px 1fr; gap: .85rem; align-items: start; line-height: 1.55; } .recipe-columns ol li::before { content: counter(steps); width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--black); background: var(--cyan); display: grid; place-items: center; font-weight: 900; box-shadow: 2px 2px 0 var(--black); }
+  .recipe-notes { margin: 0 2.4rem 2.4rem; padding: 1.25rem 1.4rem; background: #dffbfc; border: var(--border); box-shadow: var(--shadow-sm); }
+  .recipe-notes h4 { background: var(--cyan); }
+  .recipe-notes p + p { margin-top: .55rem; }
+  .recipe-paper footer { display: flex; flex-wrap: wrap; gap: .8rem; padding: 1.5rem 2.4rem 2.4rem; border-top: var(--border); background: var(--cream); }
+  .recipe-paper footer button { cursor: pointer; }
+  .recipe-fineprint { font-size: .8rem; margin-top: 1.4rem; max-width: 80ch; }
+  @media (max-width: 1050px) { .tools-hero-grid { grid-template-columns: 1fr; } .tools-sticker { width: 260px; } .recipe-app { grid-template-columns: 1fr; } .recipe-controls { border-right: 0; border-bottom: var(--border); } }
+  @media (max-width: 650px) { .tools-hero { padding: 4rem 0; } .tool-card-grid, .recipe-columns { grid-template-columns: 1fr; } .tool-card { min-height: 270px; } .recipe-app { box-shadow: 7px 7px 0 var(--black); } .adapt-form { grid-template-columns: 1fr; margin-inline: 1rem; } .adapt-form button { min-height: 48px; border-left: var(--border); border-top: 0; } .recipe-paper header, .recipe-columns { padding-inline: 1rem; } .recipe-notes { margin-inline: 1rem; } }
+</style>
