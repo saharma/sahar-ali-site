@@ -22,7 +22,13 @@ const {
 {
   photo.src ? (
     <figure class:list={["frame", className]}>
-      <img src={photo.src} alt={photo.alt} loading={loading} decoding="async" />
+      <img
+        src={photo.src}
+        alt={photo.alt}
+        loading={loading}
+        decoding="async"
+        style={photo.position ? `object-position: ${photo.position}` : undefined}
+      />
     </figure>
   ) : (
     <div class:list={["frame", "frame--placeholder", className]} role="img" aria-label={`${photo.label}. ${note}.`}>

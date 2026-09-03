@@ -17,31 +17,36 @@ export interface Photo {
   src?: string;
   alt: string;
   label: string;
+  position?: string;
 }
 
 export const heroPortrait: Photo = {
-  src: undefined,
-  alt: "Sahar Ali laughing mid-sentence while filming a piece to camera",
+  src: "/content/sahar-hero.webp",
+  alt: "Sahar Ali smiling and holding a microphone",
   label: "Hero portrait",
+  position: "center 38%",
 };
 
 export const heroSupporting: Photo[] = [
   {
-    src: undefined,
-    alt: "Sahar Ali hosting an event on stage with a microphone",
+    src: "/content/sahar-hosting.webp",
+    alt: "Sahar Ali speaking on stage in a bright pink dress",
     label: "Supporting shot 1",
+    position: "center 40%",
   },
   {
-    src: undefined,
-    alt: "Sahar Ali filming a hotel room walkthrough on her phone",
+    src: "/content/sahar-experience.webp",
+    alt: "Sahar Ali inside an immersive light installation",
     label: "Supporting shot 2",
+    position: "center 72%",
   },
 ];
 
 export const introPhoto: Photo = {
-  src: undefined,
-  alt: "Sahar Ali interviewing someone on camera, both of them mid-laugh",
+  src: "/content/sahar-on-stage.webp",
+  alt: "Sahar Ali addressing an audience from the stage",
   label: "Introduction photograph",
+  position: "center 38%",
 };
 
 export const categories = [
