@@ -516,6 +516,14 @@ section {
 
 @media (max-width: 900px) {
   .sticker { display: none; }
+
+  .sticker--4 {
+    display: block;
+    top: auto;
+    right: 4%;
+    bottom: 1rem;
+    z-index: 3;
+  }
 }
 
 /* big spinning star */
