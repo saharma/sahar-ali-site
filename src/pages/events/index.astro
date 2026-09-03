@@ -1,0 +1,67 @@
+---
+import EventsLayout from "../../layouts/EventsLayout.astro";
+import { emailUrl } from "../../data/links";
+
+const services = [
+  { num: "01", title: "Event production", colour: "pink", desc: "Idea → venue → vendors → performers → audience → showtime. I take events from first concept through programming, coordination, promotion and live delivery." },
+  { num: "02", title: "Creative & talent programming", colour: "yellow", desc: "Comedians, musicians, performers, poets, makers and weirdly convincing murder suspects—brought together as an experience, not just a line-up." },
+  { num: "03", title: "Hosting & live entertainment", colour: "cyan", desc: "Someone who can run the room, not just the run sheet. I’m comfortable on stage, on the mic and thinking on my feet when the plan meets a live audience." },
+  { num: "04", title: "Immersive experiences", colour: "lime", desc: "Interactive formats where guests become part of the story, including public, private and corporate murder mysteries across the UAE and GCC." },
+  { num: "05", title: "Partnerships & collaborations", colour: "purple", desc: "Venue but no concept? Concept but no producer? Audience in need of something better than another networking mixer? Let’s build it together." },
+];
+
+const projects = [
+  { year: "2026 → NOW", title: "Fyn", role: "Founder & Event Producer", colour: "orange", body: "A Dubai-based home for local experiences, creative businesses and the people behind them. I produce live activations that bring performers, independent businesses and audiences together.", proof: ["Creative Block Party at Tania’s Teahouse"] },
+  { year: "2018 → NOW", title: "ComedyDXB & Independent Comedy", role: "Founder, Producer & Host", colour: "pink", body: "I co-founded ComedyDXB in 2018 and have continued independently producing and hosting comedy across Dubai—finding talent, building line-ups, coordinating venues and keeping the room moving.", quote: "The partnership ended. The comedy didn’t." },
+  { year: "2022 → 2023", title: "The Murder Mystery Experience × Fever", role: "Immersive Performer", colour: "cyan", body: "Guests were inside the story: interacting with characters, following clues and trying to solve the murder while we kept the entire experience moving around them.", quote: "Not a sit-back-and-watch show." },
+  { year: "2024 → NOW", title: "Murder Mystery Experience", role: "Live Immersive Performer", colour: "lime", body: "Live interactive murder mysteries for private celebrations and corporate events across the GCC. Different venue, audience and energy every time—part performance, part improvisation and part reading the room." },
+];
+---
+
+<EventsLayout>
+  <section class="e-hero">
+    <div class="wrap e-hero-grid">
+      <div class="e-hero-copy">
+        <div class="hero-kicker reveal"><span class="dot"></span>EVENTS ✦ EXPERIENCES ✦ LIVE ENTERTAINMENT</div>
+        <h1 class="reveal">I make things people actually <span class="highlight highlight--pink">want to show up to.</span></h1>
+        <p class="e-hero-sub reveal">I produce, host and perform in live experiences across Dubai, Ireland and the GCC—from comedy shows and creative markets to live music and immersive murder mysteries.</p>
+        <div class="hero-ctas reveal"><a href="#contact" class="btn btn--pink btn--big">Let’s make something →</a><a href="#work" class="btn btn--big">See the receipts</a></div>
+      </div>
+      <div class="e-hero-visual reveal reveal--pop" aria-label="Sahar Ali hosting a live event">
+        <div class="e-photo-card"><img src="/events/sahar-main.jpg" alt="Sahar Ali at the Creative Block Party in Dubai" /><span>IN THE ROOM</span></div>
+        <div class="e-ticket e-ticket--one">DUBAI → GCC</div>
+        <div class="e-ticket e-ticket--two">IDEA → SHOWTIME</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true"><div class="marquee-track">{[0,1].map(() => <>{["Comedy", "Creative markets", "Live music", "Hosting", "Immersive theatre", "Community events"].map(item => <><span>{item}</span><span class="star-sep">✦</span></>)}</>)}</div></div>
+
+  <section class="e-intro"><div class="wrap"><p class="e-big-copy reveal">Sometimes I’m producing. Sometimes I’m performing. Sometimes I’m on the mic. Sometimes I’m building the whole thing from <span>an idea on a page</span> to <span>a room full of people.</span></p></div></section>
+
+  <section class="e-gallery" aria-label="Creative Block Party event gallery">
+    <div class="wrap">
+      <div class="e-gallery-heading reveal">
+        <span class="section-tag">Inside the room</span>
+        <p>Creative Block Party · Tania’s Teahouse · Dubai</p>
+      </div>
+      <div class="e-photo-grid stagger">
+        <figure class="e-gallery-photo e-gallery-photo--wide"><img src="/events/audience.jpg" alt="Audience gathered for the Creative Block Party" loading="lazy" /></figure>
+        <figure class="e-gallery-photo e-gallery-photo--portrait"><img src="/events/team.jpg" alt="Sahar Ali with collaborators at the Creative Block Party" loading="lazy" /></figure>
+        <figure class="e-gallery-photo"><img src="/events/market.jpg" alt="Independent creative vendors at the Creative Block Party market" loading="lazy" /></figure>
+        <figure class="e-gallery-photo"><img src="/events/crowd-wide.jpg" alt="A full room of guests watching the live programme" loading="lazy" /></figure>
+        <figure class="e-gallery-photo e-gallery-photo--portrait"><img src="/events/sahar-candid.jpg" alt="Sahar Ali speaking with a guest during the event" loading="lazy" /></figure>
+        <figure class="e-gallery-photo"><img src="/events/crowd-close.jpg" alt="Guests enjoying the Creative Block Party" loading="lazy" /></figure>
+        <figure class="e-gallery-photo e-gallery-photo--wide"><img src="/events/team-wide.jpg" alt="Sahar Ali and the Creative Block Party team" loading="lazy" /></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="e-services"><div class="wrap"><span class="section-tag reveal">What I actually do</span><h2 class="section-title reveal">The work behind the <span class="highlight highlight--yellow">magic.</span></h2><div class="e-services-grid stagger">{services.map((service) => <article class={`e-service e-service--${service.colour}`}><span class="e-service-num">{service.num}</span><h3>{service.title}</h3><p>{service.desc}</p></article>)}</div></div></section>
+
+  <section id="work" class="e-work"><div class="wrap"><span class="section-tag reveal">The receipts</span><h2 class="section-title reveal">Things I’ve actually put <span class="highlight highlight--cyan">people in rooms for.</span></h2><div class="e-projects">{projects.map((project) => <article class="e-project reveal"><div class={`e-project-meta e-bg-${project.colour}`}><span>{project.year}</span><strong>{project.role}</strong></div><div class="e-project-body"><h3>{project.title}</h3><p>{project.body}</p>{project.quote && <blockquote>“{project.quote}”</blockquote>}{project.proof && <ul>{project.proof.map(item => <li>{item}</li>)}</ul>}</div></article>)}</div></div></section>
+
+  <section class="e-theatre"><div class="wrap e-theatre-grid"><div class="e-theatre-photo reveal"><img src="/content/sahar-on-stage.webp" alt="Sahar Ali addressing an audience from the stage" /></div><div><span class="section-tag reveal">Before all of that</span><h2 class="section-title reveal">There was <span class="highlight highlight--lime">theatre.</span></h2><p class="reveal">For eight years in Ireland: rehearsals, productions, backstage chaos, performances and very long evenings.</p></div></div></section>
+
+  <section id="contact" class="e-contact"><div class="wrap"><span class="section-tag reveal">Want to make something?</span><h2 class="reveal">A private event. A brand activation. A community night. A comedy show. An immersive experience. <span>Something we haven’t named yet.</span></h2><p class="reveal">If you need someone to produce it, host it, perform in it, programme the talent or build it with you, get in touch.</p><p class="e-magic-line reveal"><strong>The audience should only see the magic.</strong> They don’t need to see the spreadsheet behind it.</p><a class="btn btn--big reveal" href={emailUrl}>Tell me what you’re thinking →</a><strong class="e-signoff reveal">Let’s make something people talk about afterwards.</strong></div></section>
+</EventsLayout>

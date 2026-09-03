@@ -217,6 +217,43 @@ a {
   }
 }
 
+/* ---------- about page ---------- */
+.about-hero { padding: 4.5rem 0 5rem; overflow: hidden; }
+.about-hero-grid { display:grid; grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr); gap:3.5rem; align-items:center; }
+.about-hero h1 { font:clamp(2.8rem,6vw,5rem)/1.04 var(--font-display); text-transform:uppercase; max-width:12ch; }
+.about-lead { max-width:52ch; font-size:1.25rem; font-weight:500; margin:1.7rem 0 2rem; }
+.about-portrait { position:relative; width:min(100%,420px); aspect-ratio:4/5; margin-inline:auto; border:var(--border); box-shadow:var(--shadow); background:var(--cyan); padding:11px; transform:rotate(2deg); }
+.about-portrait img { width:100%; height:100%; display:block; object-fit:cover; border:2px solid var(--black); }
+.about-sticker { position:absolute; z-index:2; border:var(--border); box-shadow:var(--shadow-sm); padding:.5rem .8rem; font-weight:800; font-size:.82rem; letter-spacing:.06em; }
+.about-sticker--one { left:-35px; top:45px; background:var(--yellow); transform:rotate(-6deg); }
+.about-sticker--two { right:-35px; bottom:48px; background:var(--pink); transform:rotate(5deg); }
+.about-intro { background:var(--black); color:var(--cream); border-block:var(--border); padding:4rem 0; }
+.about-intro-grid { display:grid; grid-template-columns:220px 1fr; gap:2rem; align-items:start; }
+.about-intro p { font:clamp(1.65rem,3.5vw,2.8rem)/1.28 var(--font-display); text-transform:uppercase; max-width:30ch; }
+.about-chapters { display:grid; gap:1.4rem; margin-top:2.5rem; }
+.about-chapter { display:grid; grid-template-columns:100px 1fr; gap:1.4rem; align-items:start; border:var(--border); box-shadow:var(--shadow); background:#fff; padding:1.5rem; }
+.about-chapter-num { width:70px; height:70px; display:grid; place-items:center; border:var(--border); font:1.45rem var(--font-display); }
+.about-chapter span { font-size:.8rem; font-weight:800; letter-spacing:.12em; }
+.about-chapter h3 { font:clamp(1.35rem,3vw,2rem)/1.15 var(--font-display); text-transform:uppercase; margin:.25rem 0 .6rem; }
+.about-chapter p { max-width:72ch; }
+.about-bits { background:var(--yellow); border-block:var(--border); }
+.about-bits-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1.2rem; margin-top:2rem; }
+.about-bits-grid div { background:var(--cream); border:var(--border); box-shadow:var(--shadow-sm); padding:1.4rem; }
+.about-bits-grid strong { display:block; font:clamp(2rem,5vw,3.4rem) var(--font-display); }
+.about-bits-grid span { font-weight:700; }
+.about-beliefs-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center; }
+.about-belief-list { display:grid; gap:1rem; }
+.about-belief-list p { display:flex; gap:.8rem; align-items:center; border:var(--border); box-shadow:var(--shadow-sm); padding:1rem; background:#fff; font-weight:700; }
+.about-links { background:var(--purple); border-block:var(--border); }
+.about-link-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; margin-top:2rem; }
+.about-link-card { min-height:190px; display:flex; flex-direction:column; justify-content:space-between; border:var(--border); box-shadow:var(--shadow); padding:1.4rem; text-decoration:none; transition:transform .15s ease,box-shadow .15s ease; }
+.about-link-card:hover { transform:translate(-3px,-3px); box-shadow:10px 10px 0 var(--black); }
+.about-link-card span { font-weight:700; text-transform:uppercase; letter-spacing:.08em; font-size:.8rem; }
+.about-link-card strong { font:1.4rem/1.15 var(--font-display); text-transform:uppercase; }
+.about-link-card--pink{background:var(--pink)} .about-link-card--yellow{background:var(--yellow)} .about-link-card--cyan{background:var(--cyan)}
+@media(max-width:900px){.about-hero-grid,.about-beliefs-grid{grid-template-columns:1fr}.about-intro-grid{grid-template-columns:1fr}.about-bits-grid{grid-template-columns:repeat(2,1fr)}.about-link-grid{grid-template-columns:1fr}.about-link-card{min-height:150px}}
+@media(max-width:620px){.about-hero{padding-top:3rem}.about-portrait{width:82%}.about-sticker--one{left:-25px}.about-sticker--two{right:-25px}.about-chapter{grid-template-columns:1fr}.about-chapter-num{width:58px;height:58px}.about-bits-grid{grid-template-columns:1fr 1fr}.about-bits-grid div{padding:1rem}.about-bits-grid strong{font-size:2rem}}
+
 /* ---------- buttons ---------- */
 .btn {
   display: inline-block;

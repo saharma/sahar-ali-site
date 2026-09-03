@@ -5,6 +5,11 @@
       "source": "/",
       "has": [{ "type": "host", "value": "content.saharali.com" }],
       "destination": "/content"
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "events.saharali.com" }],
+      "destination": "/events"
     }
   ]
 }

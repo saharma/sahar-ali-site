@@ -7,9 +7,9 @@ import vercel from '@astrojs/vercel';
 export default defineConfig({
   site: 'https://saharali.com',
   adapter: vercel(),
-  // The content portfolio is canonical at content.saharali.com, so it stays out
+  // Subdomain experiences are canonical on their own hosts, so they stay out
   // of the saharali.com sitemap.
-  integrations: [sitemap({ filter: (page) => !page.includes("/content") })],
+  integrations: [sitemap({ filter: (page) => !page.includes("/content") && !page.includes("/events") })],
   env: {
     schema: {
       SUPABASE_URL: envField.string({ context: 'server', access: 'secret', optional: true }),

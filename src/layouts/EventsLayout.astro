@@ -1,0 +1,80 @@
+---
+import Analytics from "@vercel/analytics/astro";
+import "../styles/global.css";
+import "../styles/events.css";
+import { emailUrl, linkedinUrl } from "../data/links";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Sahar Ali | Events, Experiences & Live Entertainment",
+  description = "Dubai-based event producer, host and performer creating comedy shows, creative markets, live entertainment and immersive experiences across the GCC.",
+} = Astro.props;
+
+const origin = "https://events.saharali.com";
+const canonical = new URL(Astro.url.pathname.replace(/^\/events/, "") || "/", origin).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Sahar Ali Events" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content="https://events.saharali.com/events-og.png" />
+    <meta property="og:image:alt" content="I make things people want to show up to — events, experiences and live entertainment" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://events.saharali.com/events-og.png" />
+    <meta name="twitter:image:alt" content="I make things people want to show up to — events, experiences and live entertainment" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <Analytics />
+  </head>
+  <body class="events-site">
+    <div class="progress-bar" id="progressBar"></div>
+    <nav class="nav events-nav">
+      <a href="/events/" class="nav-logo">SAHAR<span class="spark">✦</span>ALI <span class="nav-sub">Events</span></a>
+      <div class="events-nav-links">
+        <a href="#services">What I do</a>
+        <a href="#work">The receipts</a>
+        <a href="#contact" class="btn btn--pink">Make something</a>
+      </div>
+    </nav>
+    <main><slot /></main>
+    <footer class="footer events-footer">
+      <span>© {new Date().getFullYear()} Sahar Ali · Dubai, UAE · creating across the GCC</span>
+      <span class="footer-links"><a href={emailUrl}>Email</a><a href={linkedinUrl} target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://saharali.com">Main site</a></span>
+    </footer>
+    <script>
+      const bar = document.getElementById("progressBar");
+      const onScroll = () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        if (bar) bar.style.width = `${max > 0 ? (window.scrollY / max) * 100 : 0}%`;
+      };
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) { entry.target.classList.add("visible"); io.unobserve(entry.target); }
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll(".reveal, .stagger").forEach((el) => io.observe(el));
+    </script>
+  </body>
+</html>

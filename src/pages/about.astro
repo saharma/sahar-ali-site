@@ -1,0 +1,64 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+import { consultationUrl, emailUrl } from "../data/links";
+
+const chapters = [
+  {
+    year: "THE THROUGH-LINE",
+    title: "Making complicated things make sense",
+    text: "I’ve spent more than a decade sitting between ambitious ideas and the people responsible for making them real. I translate between business goals, customer needs and technical reality—then help teams move from conversation to delivery.",
+    colour: "var(--pink)",
+  },
+  {
+    year: "THE WORK",
+    title: "Product, delivery, data and AI",
+    text: "I’ve owned and shipped more than 30 products, scaled one to 300,000 users and delivered across four continents. Today, much of my work is focused on practical AI: useful products, smarter operations and workflows that genuinely save people time.",
+    colour: "var(--yellow)",
+  },
+  {
+    year: "OUTSIDE THE DECK",
+    title: "Founder, builder and person on the mic",
+    text: "I’m also the founder of Fyn, a platform for discovering local experiences and creative businesses. Away from screens, I’ve produced events, hosted comedy, performed in theatre and played suspicious characters in immersive murder mysteries across the GCC.",
+    colour: "var(--cyan)",
+  },
+];
+---
+
+<Layout
+  title="About Sahar Ali | Tech Consultant, Founder & Builder"
+  description="Meet Sahar Ali: a Sudanese-Irish tech consultant, founder and creative based in Dubai, working across AI, product, delivery, data and live experiences."
+>
+  <section class="about-hero">
+    <div class="wrap about-hero-grid">
+      <div>
+        <div class="hero-kicker reveal"><span class="dot"></span>SUDANESE ✦ IRISH ✦ DUBAI-BASED</div>
+        <h1 class="reveal">I’m Sahar. I make <span class="highlight highlight--pink">big ideas</span> easier to build.</h1>
+        <p class="about-lead reveal">Tech consultant, product person, founder, event producer and former comedian. A slightly unusual combination that turns out to be very useful.</p>
+        <div class="hero-ctas reveal">
+          <a href={consultationUrl} class="btn btn--pink btn--big" target="_blank" rel="noopener noreferrer">Work with me →</a>
+          <a href={emailUrl} class="btn btn--big">Say hello</a>
+        </div>
+      </div>
+      <div class="about-portrait reveal reveal--pop">
+        <img src="/content/sahar-hero.webp" alt="Sahar Ali smiling and holding a microphone" />
+        <span class="about-sticker about-sticker--one">BUILDS THINGS</span>
+        <span class="about-sticker about-sticker--two">ASKS GOOD QUESTIONS</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true"><div class="marquee-track">{[0,1].map(() => <>{["Tech consultant", "Product leader", "AI builder", "Founder", "Event producer", "Host"].map(item => <><span>{item}</span><span class="star-sep">✦</span></>)}</>)}</div></div>
+
+  <section class="about-intro"><div class="wrap about-intro-grid"><span class="section-tag reveal">The short version</span><p class="reveal">I’m at my best in the messy middle: when the ambition is clear, the route is not, and someone needs to connect the dots. I bring structure without draining the personality out of the work.</p></div></section>
+
+  <section class="about-story"><div class="wrap"><span class="section-tag reveal">The longer version</span><h2 class="section-title reveal">A career built around <span class="highlight highlight--yellow">making things happen.</span></h2><div class="about-chapters stagger">{chapters.map((chapter, index) => <article class="about-chapter"><div class="about-chapter-num" style={`background:${chapter.colour}`}>0{index + 1}</div><div><span>{chapter.year}</span><h3>{chapter.title}</h3><p>{chapter.text}</p></div></article>)}</div></div></section>
+
+  <section class="about-bits"><div class="wrap"><span class="section-tag reveal">A few useful facts</span><div class="about-bits-grid stagger"><div><strong>10+</strong><span>years in tech</span></div><div><strong>30+</strong><span>products shipped</span></div><div><strong>300K</strong><span>users scaled to</span></div><div><strong>4</strong><span>continents delivered on</span></div></div></div></section>
+
+  <section class="about-beliefs"><div class="wrap about-beliefs-grid"><div><span class="section-tag reveal">How I work</span><h2 class="section-title reveal">Clear thinking. Plain language. <span class="highlight highlight--lime">Real outcomes.</span></h2></div><div class="about-belief-list stagger"><p><Icon name="compass" size={24} /> Start with the actual problem.</p><p><Icon name="code" size={24} /> Get close enough to the work to understand it.</p><p><Icon name="zap" size={24} /> Make progress visible and useful.</p><p><Icon name="message" size={24} /> Say the complicated thing simply.</p></div></div></section>
+
+  <section class="about-links"><div class="wrap"><span class="section-tag reveal">The whole picture</span><h2 class="section-title reveal">There’s more than one side to the work.</h2><div class="about-link-grid stagger"><a href="/portfolio" class="about-link-card about-link-card--pink"><span>Selected work</span><strong>Tech product portfolio →</strong></a><a href="https://content.saharali.com" class="about-link-card about-link-card--yellow"><span>On camera</span><strong>Content & collaborations →</strong></a><a href="https://events.saharali.com" class="about-link-card about-link-card--cyan"><span>In the room</span><strong>Events & experiences →</strong></a></div></div></section>
+
+  <section class="cta"><div class="wrap"><h2 class="section-title reveal">Got something complicated that needs <span class="highlight highlight--pink">making real?</span></h2><p class="cta-sub reveal">Tell me where you’re stuck. We’ll work out what needs to happen next.</p><a href={consultationUrl} class="btn btn--pink btn--big reveal" target="_blank" rel="noopener noreferrer">Book a consult →</a></div></section>
+</Layout>
