@@ -46,8 +46,8 @@ export const styleWords = [
 export const currentOpportunity = {
   show: true,
   eyebrow: "CURRENTLY PLANNING",
-  heading: "Türkiye, September 2026",
-  body: "I'll be travelling between 19 and 26 September and am open to selected hotel, travel and experience partnerships.",
+  heading: "Rome & Dublin, September 2026",
+  body: "I'll be in Rome from 8–12 September and Dublin from 12–19 September, and I'm open to selected hotel, travel and experience partnerships.",
   ctaLabel: "Discuss a collaboration",
   ctaHref: "#contact",
 };
