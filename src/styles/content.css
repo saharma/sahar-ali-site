@@ -102,7 +102,7 @@
 
 .c-hero-media {
   position: relative;
-  padding-bottom: 3.5rem;
+  padding-bottom: 5rem;
 }
 
 .c-hero-main {
@@ -121,7 +121,7 @@
 }
 
 .c-hero-thumbs .frame {
-  width: 118px;
+  width: 158px;
   aspect-ratio: 1 / 1;
   box-shadow: var(--shadow-sm);
 }
@@ -141,7 +141,7 @@
   }
 
   .c-hero-media {
-    padding-bottom: 2.5rem;
+    padding-bottom: 4rem;
   }
 
   .c-hero-main {
@@ -155,7 +155,7 @@
   }
 
   .c-hero-thumbs .frame {
-    width: 96px;
+    width: 124px;
   }
 }
 
