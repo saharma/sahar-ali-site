@@ -21,6 +21,9 @@
 .e-gallery { padding:5rem 0; background:var(--cyan); border-bottom:var(--border); overflow:hidden; }
 .e-gallery-heading { display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; margin-bottom:2rem; }
 .e-gallery-heading p { font-weight:800; text-transform:uppercase; text-align:right; }
+.e-gallery-meta { text-align:right; }
+.e-gallery-meta small { display:block; margin-top:.3rem; font-size:.72rem; font-weight:700; letter-spacing:.04em; }
+.e-gallery-meta a { color:inherit; text-underline-offset:2px; }
 .e-photo-grid { display:grid; grid-template-columns:repeat(12,1fr); grid-auto-rows:210px; gap:1.25rem; }
 .e-gallery-photo { grid-column:span 4; margin:0; border:var(--border); box-shadow:var(--shadow); background:var(--cream); padding:8px; transform:rotate(-1deg); }
 .e-gallery-photo:nth-child(even) { transform:rotate(1.2deg); }
@@ -64,5 +67,5 @@
 .e-magic-line strong { font-family:var(--font-display); text-transform:uppercase; }
 .e-signoff { display:block; margin-top:3rem; font:clamp(1.35rem,3vw,2rem) var(--font-display); text-transform:uppercase; }
 @media(max-width:900px){.e-hero-grid,.e-theatre-grid{grid-template-columns:1fr}.e-hero-visual{min-height:500px}.e-services-grid{grid-template-columns:1fr 1fr}.e-service,.e-service:nth-child(4),.e-service:nth-child(5){grid-column:span 1}.e-project{grid-template-columns:190px 1fr}.e-photo-grid{grid-auto-rows:180px}.e-gallery-photo{grid-column:span 6}.e-gallery-photo--wide{grid-column:span 12}}
-@media(max-width:720px){.events-nav-links a:not(.btn){display:none}.events-nav-links .btn{font-size:.82rem;padding:.55rem .7rem}.e-hero{padding-top:3rem}.e-hero-grid{gap:2rem}.e-hero h1{font-size:clamp(2.45rem,13vw,4rem)}.e-hero-visual{min-height:430px}.e-photo-card{width:82%;}.e-ticket--one{right:0}.e-ticket--two{right:4px}.e-gallery-heading{display:block}.e-gallery-heading p{text-align:left;margin-top:.5rem}.e-photo-grid{grid-template-columns:1fr;grid-auto-rows:230px}.e-gallery-photo,.e-gallery-photo--wide{grid-column:1}.e-gallery-photo--portrait{grid-row:span 2}.e-services-grid{grid-template-columns:1fr}.e-project{grid-template-columns:1fr}.e-project-meta{border-right:0;border-bottom:var(--border);gap:.3rem}.e-theatre-grid{gap:2.2rem}.events-footer{align-items:flex-start}.events-footer .footer-links{flex-wrap:wrap}}
+@media(max-width:720px){.events-nav-links a:not(.btn){display:none}.events-nav-links .btn{font-size:.82rem;padding:.55rem .7rem}.e-hero{padding-top:3rem}.e-hero-grid{gap:2rem}.e-hero h1{font-size:clamp(2.45rem,13vw,4rem)}.e-hero-visual{min-height:430px}.e-photo-card{width:82%;}.e-ticket--one{right:0}.e-ticket--two{right:4px}.e-gallery-heading{display:block}.e-gallery-heading p{text-align:left;margin-top:.5rem}.e-gallery-meta{text-align:left}.e-photo-grid{grid-template-columns:1fr;grid-auto-rows:230px}.e-gallery-photo,.e-gallery-photo--wide{grid-column:1}.e-gallery-photo--portrait{grid-row:span 2}.e-services-grid{grid-template-columns:1fr}.e-project{grid-template-columns:1fr}.e-project-meta{border-right:0;border-bottom:var(--border);gap:.3rem}.e-theatre-grid{gap:2.2rem}.events-footer{align-items:flex-start}.events-footer .footer-links{flex-wrap:wrap}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal,.stagger{opacity:1!important;transform:none!important}}
