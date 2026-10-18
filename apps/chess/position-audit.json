@@ -1,9 +1,0 @@
-{
-  "engine": "python-chess 1.11.2",
-  "passed": true,
-  "lessons": 30,
-  "puzzles": 10000,
-  "openingLines": 3865,
-  "positionStatesChecked": 91194,
-  "failures": []
-}

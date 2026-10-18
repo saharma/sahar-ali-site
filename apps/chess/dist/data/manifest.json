@@ -1,0 +1,20 @@
+{
+  "importedAt": "2026-10-14T14:22:38.461Z",
+  "puzzles": 10000,
+  "openingLines": 3865,
+  "counts": {
+    "opening": 1500,
+    "middlegame": 6500,
+    "endgame": 2000
+  },
+  "scanned": 36361,
+  "rejected": 0,
+  "source": "https://database.lichess.org/",
+  "license": "CC0",
+  "deduplication": "Board, turn, castling and en-passant state; full legal solution replay",
+  "note": "Puzzle solutions and theme tags supplied by Lichess; explanations are original theme guidance.",
+  "spotlight": {
+    "id": "000rO",
+    "fen": "3R4/8/8/KB2b3/1p6/1P2k3/3p4/8 b - - 0 58"
+  }
+}
