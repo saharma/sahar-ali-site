@@ -1,0 +1,30 @@
+{
+  "url": "https://sahar-chess-7jsf22ajv-fyn-technologies.vercel.app",
+  "projectId": "prj_iVkmDdrRPYat6LDcixCxatDE8emE",
+  "teamId": "team_Z9e9aGbta0RcEP8SUROzbKTB",
+  "deploymentId": "dpl_AVVBvQrZWErFSELD3UemxWvWa8a3",
+  "deploymentUrl": "https://sahar-chess-c2xoaco44-fyn-technologies.vercel.app",
+  "target": "production",
+  "status": "READY",
+  "verification": {
+    "customDomainHttps": true,
+    "referenceCardSectionRemoved": true,
+    "mobileViewportWidths": [
+      320,
+      390
+    ],
+    "liveMobilePageWidth": 390,
+    "liveMobileViewportWidth": 390,
+    "liveBishopSquares": 64,
+    "browserConsoleErrors": 0,
+    "startup": "Small manifest only; puzzle and opening databases load on demand",
+    "focusPieceRestriction": true,
+    "automaticBlackReplies": true,
+    "allLessonTypes": 18,
+    "knightBranches": 8,
+    "independentDemoMoves": 36
+  },
+  "productionUrl": "https://chess.saharali.com",
+  "lessonGuardrailsVerified": true,
+  "lessonCount": 22
+}

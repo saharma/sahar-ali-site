@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "puzzles": 10000,
+  "uniqueBoards": 10000,
+  "validatedSolutionMoves": 33336,
+  "phaseCounts": {
+    "opening": 1500,
+    "middlegame": 6500,
+    "endgame": 2000
+  },
+  "openingLines": 3865,
+  "guidedLessons": 30,
+  "startingPositions": [
+    "correct side to move",
+    "king safety",
+    "piece and pawn counts",
+    "castling state",
+    "en passant state",
+    "no lesson after game over",
+    "replayed lesson provenance"
+  ],
+  "specialRules": [
+    "castling",
+    "en passant",
+    "all four promotions",
+    "king safety"
+  ],
+  "storage": [
+    "viewed versus solved",
+    "future reviews",
+    "bookmarks",
+    "lesson persistence"
+  ]
+}
