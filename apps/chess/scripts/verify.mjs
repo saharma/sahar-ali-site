@@ -1,0 +1,20 @@
+import {checkedPosition} from '../dist/position-validation.js';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import {Chess} from '../dist/vendor/chess.js';
+import {lessons} from '../dist/content.js';
+const puzzles=JSON.parse(await fs.readFile(new URL('../dist/data/puzzles.json',import.meta.url)));const openings=JSON.parse(await fs.readFile(new URL('../dist/data/openings.json',import.meta.url)));const manifest=JSON.parse(await fs.readFile(new URL('../dist/data/manifest.json',import.meta.url)));
+const uci=(g,m)=>g.move({from:m.slice(0,2),to:m.slice(2,4),promotion:m[4]});
+let moves=0;const seen=new Set(),counts={opening:0,middlegame:0,endgame:0};
+for(const p of puzzles){const g=checkedPosition(p.sourceFen);checkedPosition(p.fen);uci(g,p.sourceFen?(()=>{const fromSource=new Chess(p.sourceFen);return fromSource.moves({verbose:true}).find(m=>m.san===p.setup).lan})():'');assert.equal(g.fen(),p.fen,`Setup ${p.id}`);const key=p.fen.split(' ').slice(0,4).join(' ');assert(!seen.has(key),`Duplicate ${p.id}`);seen.add(key);for(let i=0;i<p.moves.length;i++){assert.equal(uci(g,p.moves[i]).san,p.san[i]);checkedPosition(g.fen());moves++}if(p.themes.includes('mate'))assert(g.isCheckmate(),`Mate ${p.id}`);counts[p.phase]++}
+assert.equal(puzzles.length,10000);assert.deepEqual(counts,{opening:1500,middlegame:6500,endgame:2000});assert.equal(manifest.puzzles,puzzles.length);
+for(const o of openings){const g=new Chess();for(const m of o.moves){g.move(m);checkedPosition(g.fen())}assert.equal(g.fen(),o.fen)}
+for(const l of lessons){const g=checkedPosition(l.fen);assert(!g.isGameOver(),`Lesson starts after game over: ${l.id}`);if(l.setupMoves){const replay=new Chess();for(const m of l.setupMoves){assert(!replay.isGameOver());replay.move(m);checkedPosition(replay.fen())}assert.equal(replay.fen(),l.fen,`Lesson provenance ${l.id}`)}uci(g,l.move);checkedPosition(g.fen());if(l.mate)assert(g.isCheckmate(),`Lesson ${l.id}`)}
+// Verify the special rules used in interactive exercises.
+let g=new Chess(lessons.find(l=>l.id==='castling').fen);uci(g,'e1g1');assert.equal(g.get('f1').type,'r');assert.equal(g.get('g1').type,'k');
+g=new Chess(lessons.find(l=>l.id==='en-passant').fen);uci(g,'e5d6');assert.equal(g.get('d5'),undefined);assert.equal(g.get('d6').color,'w');
+for(const piece of ['q','r','b','n']){g=new Chess(lessons.find(l=>l.id==='promotion').fen);uci(g,'e7e8'+piece);assert.equal(g.get('e8').type,piece)}
+g=new Chess(lessons.find(l=>l.id==='check').fen);assert.throws(()=>uci(g,'e1e2'));assert.throws(()=>checkedPosition('7k/8/8/8/8/2B5/8/K7 w - - 0 30'),/left its king in check/);uci(g,'e1d1');assert(!g.isCheck());
+// The browser-local persistence contract: views do not count as solves, reviews and bookmarks survive serialization.
+const store=new Map();globalThis.localStorage={getItem:k=>store.get(k)||null,setItem:(k,v)=>store.set(k,v)};const storage=await import('../dist/storage.js');storage.recordAttempt('test','viewed');assert.equal(Object.keys(storage.progress.solved).length,0);storage.completePuzzle('test',1);assert.equal(storage.progress.solved.test.hints,1);assert(Date.parse(storage.progress.solved.test.due)>Date.now());storage.bookmark('test');assert(storage.loadProgress().bookmarks.includes('test'));storage.completeLesson('knight');assert(storage.loadProgress().completedLessons.knight);
+const report={passed:true,puzzles:puzzles.length,uniqueBoards:seen.size,validatedSolutionMoves:moves,phaseCounts:counts,openingLines:openings.length,guidedLessons:lessons.length,startingPositions:['correct side to move','king safety','piece and pawn counts','castling state','en passant state','no lesson after game over','replayed lesson provenance'],specialRules:['castling','en passant','all four promotions','king safety'],storage:['viewed versus solved','future reviews','bookmarks','lesson persistence']};await fs.writeFile(new URL('../verification.json',import.meta.url),JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));

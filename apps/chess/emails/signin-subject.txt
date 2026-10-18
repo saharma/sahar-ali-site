@@ -1,0 +1,1 @@
+{{ if eq .RedirectTo "https://chess.saharali.com/" }}Sign in to Sahar Chess. Your next move awaits.{{ else }}Sign in to Wordshift. Your next little twist awaits.{{ end }}

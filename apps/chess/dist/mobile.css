@@ -1,0 +1,70 @@
+/* Mobile interaction and layout refinements. Board geometry remains exactly 8 × 8. */
+.mobile-task{display:none}
+@media(max-width:780px){
+ body{overflow-x:clip}
+ .site-header{padding-inline:16px;gap:12px}
+ .site-header nav{scrollbar-width:none;gap:15px;padding-bottom:1px}
+ .site-header nav::-webkit-scrollbar{display:none}
+ nav a{min-height:44px;display:flex;align-items:center;padding-block:7px;flex-shrink:0}
+ .site-header>.button{min-height:44px}
+ .button,.filter,.opening-option{min-height:44px}
+ input,select{font-size:16px;min-height:44px}
+ input[type=search]{width:100%;flex-basis:100%;min-width:0}
+ .toolbar label{display:flex;align-items:center;gap:7px;max-width:100%}
+ .toolbar select{max-width:100%;min-width:0;flex:1}
+ .workspace{grid-template-columns:minmax(0,1fr);gap:24px}
+ .board-shell,.panel,.workspace>aside{min-width:0}
+ .mobile-task{display:block;margin:0 0 16px;border:2px solid var(--ink);background:var(--yellow);padding:12px 14px;font-size:14px;line-height:1.5}
+ .mobile-task b{display:block;font-size:10px;letter-spacing:.8px;text-transform:uppercase;margin-bottom:4px}
+ .board-info{gap:10px;font-size:11px}
+ .board-controls{gap:9px;margin-top:17px}
+ .board-controls .button{flex:1 1 calc(25% - 9px);white-space:nowrap;padding:8px;font-size:11px}
+ .board-caption{font-size:12px}
+ .card-meta{flex-wrap:wrap;line-height:1.4}
+ .card-body h3{overflow-wrap:anywhere}
+ .opening-option{padding:12px;gap:8px}
+ .opening-option small{flex-shrink:0;font-size:10px}
+ .opening-options{overscroll-behavior:contain}
+ .study-title{align-items:flex-start}
+ .study-title>.button{margin-top:18px;flex-shrink:0}
+ .panel .actions>.button{flex:1 1 auto}
+ .feedback{scroll-margin-top:16px}
+ .position-context{overflow-wrap:anywhere}
+ .progress-numbers>div{min-width:0}
+ .history-table td{padding-right:8px;line-height:1.5}
+ .ticker{text-align:left}
+ dialog{width:calc(100% - 28px);max-width:380px;padding:22px}
+ #promotion-options{gap:8px;justify-content:space-between}
+ #promotion-options button{width:calc(25% - 6px);min-width:0;min-height:78px}
+}
+@media(max-width:360px){
+ .shell{padding-inline:14px}
+ .hero h1{font-size:28px;letter-spacing:-1.6px}
+ .study-title h1{font-size:27px}
+ .stats-inner{padding-inline:14px;gap:9px}
+ .stat b{font-size:23px}
+ .stat span{line-height:1.5}
+ .progress-numbers{gap:9px}
+ .progress-numbers b{font-size:25px}
+ .board-controls .button{flex-basis:calc(50% - 9px)}
+}
+.mobile-feedback{font-size:14px;line-height:1.5;margin:8px 0 0;font-weight:500}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* Keep the task and the next action visible before an interactive board. */
+.mobile-task{display:block}
+.study-mode .ticker{display:none}
+.opening-start{margin:24px 0 32px}
+.opening-start>.button{margin-top:16px}
+.notice>.button{margin:8px 8px 0 0}
+@media(max-width:780px){
+ .study-mode .site-header{padding-block:8px;gap:6px}
+ .study-mode .site-header nav a{min-height:36px}
+ .study-mode .page-title{padding-top:20px}
+ .mobile-task .actions{gap:8px;margin-top:10px}
+ .mobile-task .button{min-height:44px}
+ .mobile-task .mobile-feedback{margin-top:10px}
+}
+.mobile-task{margin:0 0 16px;border:2px solid var(--ink);background:var(--yellow);padding:12px 14px;font-size:14px;line-height:1.5}
+.mobile-task>b{display:block;font-size:10px;letter-spacing:.8px;text-transform:uppercase;margin-bottom:4px}
+.mobile-task .actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
